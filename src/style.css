@@ -144,7 +144,7 @@ a:hover,
   }
 
   .main-nav {
-    top: 6%;
+    top: 78;
     gap: 5px;
   }
 }
@@ -231,7 +231,7 @@ h1 {
   .swiper {
     margin: .5rem 0rem;
     width: 90%;
-    height: 60vh;
+    height: 75vh;
   }
 
   .card {
