@@ -1,7 +1,7 @@
 .music-playlist {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
     height: 50vh;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -26,9 +26,15 @@
 
 .music-cover {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
     background-color: grey;
+}
+.music-cover img{
+    width: 45px;
+    height: 45px;
 }
 .music-info {
     display: flex;
@@ -46,4 +52,11 @@
     display: flex;
     width: 90%;
     justify-content:space-between;
+}
+
+@media screen and (max-width: 450px)
+{
+    .music-playlist {
+        width: 100%;
+    }
 }
