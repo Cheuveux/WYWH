@@ -13,7 +13,6 @@ export  function intializeRadio()
 
     const tracks = [
         'audio/Give_me_your_hand.mp3',
-        'audio/mixtest.wav',
         'audio/Swimming_pool.mp3',
         'audio/Pressure.mp3',
     ]
