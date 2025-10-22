@@ -28,51 +28,50 @@ document.querySelector('#app').innerHTML = `
       <div class="swiper-slide">
         <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>1</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-zine/postcard wywh.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-zine/back.png" alt=""></div>
           </div>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>2</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-zine/postcard wywh7.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-zine/back.png" alt=""></div>
           </div>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>3</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-zine/postcard wywh19.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-zine/back.png" alt=""></div>
           </div>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>4</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB2.png" alt=""></div>
           </div>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>5</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB3.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB4.png" alt=""></div>
           </div>
         </div>
       </div>
       <div class="swiper-slide">
-        <div class="card">
+       <div class="card">
           <div class="card-inner">
-            <div class="card-front"><h1>6</h1></div>
-            <div class="card-back"><h1>🎴</h1></div>
+            <div class="card-front"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB7.png" alt=""></div>
+            <div class="card-back"><img src="./public/img/post-card/postcart-antoine/postcard wywh 2 AB8.png" alt=""></div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 

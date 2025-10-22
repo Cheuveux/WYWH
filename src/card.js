@@ -1,31 +1,33 @@
 export function initializeCards() {
- // Logique pour retourner les cartes
   const cards = document.querySelectorAll('.card');
-  const carroussel = document.querySelector('.home-carroussel');
 
-  // 1. Retourner au clic
+  // 1️⃣ S'assurer que les cartes sont visibles face avant au départ
+  cards.forEach(card => {
+    card.classList.remove('flipped');
+  });
+
+  // 2️⃣ Permettre le flip au clic
   cards.forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
     });
   });
 
-  // 2. Retourner au scroll horizontal
+  // 3️⃣ Observer le scroll horizontal ET vertical
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('flipped');
-      } else {
         entry.target.classList.remove('flipped');
+      } else {
+        entry.target.classList.add('flipped');
       }
     });
   }, {
-    root: carroussel,
-    threshold: 0.8,
+    root: null,            
+    threshold: 0.5,        
   });
 
   cards.forEach(card => {
     observer.observe(card);
   });
-
 }

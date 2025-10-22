@@ -42,6 +42,7 @@ body {
 #app {
   
   height: 100vh;
+  max-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -50,7 +51,7 @@ body {
 
 }
 
-@media screen and (max-width: 450px)
+@media screen and (max-width: 650px)
 {
     #app {
       padding: .5rem;
@@ -127,7 +128,7 @@ a:hover,
   
 }
 
-@media screen and (max-width : 450px) {
+@media screen and (max-width : 650px) {
 
   .site-header {
     padding: 0.5rem 0rem;
@@ -170,7 +171,7 @@ a:hover,
 
 .card {
   position: relative;
-  width: 400px; /* largeur réduite pour moins de décalage */
+  width: 800px; /* largeur réduite pour moins de décalage */
   max-width: 90%;
   height: 420px;
   perspective: 2000px; /* perspective plus grande pour un flip plus doux */
@@ -222,12 +223,18 @@ a:hover,
   transform: rotateY(180deg);
 }
 
+.card-front img,
+.cart-back img {
+  border-radius: 1px;
+
+}
+
 h1 {
   color: black;
   
 }
 
-@media screen and (max-width : 450px){
+@media screen and (max-width : 650px){
   .swiper {
     margin: .5rem 0rem;
     width: 90%;
@@ -236,7 +243,7 @@ h1 {
 
   .card {
     width: 90%;
-    height: 30vh;
+    height: auto;
   }
 }
 
@@ -425,7 +432,7 @@ h1 {
   text-align: center;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 650px) {
   .audio-footer {
     height: 50px;
     padding: 0rem 0.5rem;
