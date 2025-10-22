@@ -1,5 +1,11 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export function initializeCards() {
   const cards = document.querySelectorAll('.card');
+ 
 
   // 1️⃣ S'assurer que les cartes sont visibles face avant au départ
   cards.forEach(card => {
@@ -29,5 +35,19 @@ export function initializeCards() {
 
   cards.forEach(card => {
     observer.observe(card);
+  });
+
+  cards.forEach(card => {
+    const cardInner = card.querySelector('.card-inner');
+    const imgFront = card.querySelector('.card-front img');
+
+    if(!cardInner || !imgFront) return;
+
+    if (!imgFront.complete)
+    {
+      imgFront.addEventListener('load', () => {
+        initCardAnimation(cardInner, card);
+      });
+    }
   });
 }
