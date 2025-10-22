@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      (function () {
+        // Adapter si votre base diffère
+        var base = '/WYWH/';
+        // extraire la partie après la base
+        var path = location.pathname;
+        if (path.indexOf(base) === 0) path = path.slice(base.length);
+        // construire la cible en hash (préserve le "chemin")
+        var target = base + '#' + (path || '/');
+        location.replace(target + location.search + location.hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
