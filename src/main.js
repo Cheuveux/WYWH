@@ -14,9 +14,9 @@ document.querySelector('#app').innerHTML = `
     </button>
     <h1 class="logo">wishyouwerehere<span>.world</span></h1>
     <nav id="main-nav" class="main-nav">
-          <a class="nav-item" href="/music.html">wishyouwerehere<span>.music</span></a>
-          <a class="nav-item" href="/photo.html">wishyouwerehere<span>.photo</span></a>
-          <a class="nav-item" href="/providers.html">wishyouwerehere<span>.providers</span></a>
+          <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
+          <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html">wishyouwerehere<span>.photo</span></a>
+          <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.providers</span></a>
     </nav>
         
 

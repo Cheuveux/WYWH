@@ -11,26 +11,29 @@ export  function intializeRadio()
     const   timeTotal = document.getElementById('time-total');
     const   playBtn = document.getElementById('play-pause');
 
-    const tracks = [
+    // tracks peut être remplacé via l'API
+    let tracks = [
         'audio/Give_me_your_hand.mp3',
         'audio/Swimming_pool.mp3',
         'audio/Pressure.mp3',
-    ]
-
+    ];
 
     let current = 0;
     let isPlaying = false;
     let isVisible = false;
 
-    function    updateTrackTitle() {
-        const path = tracks[current];
-        const fileName = path.split('/').pop();
+    function updateTrackTitle() {
+        const path = tracks[current] || '';
+        const fileName = path.split('/').pop() || '';
         trackTitle.textContent = fileName.replace(/\.[^/.]+$/, "");
     }
-    player.src = tracks[current];
+
+    // initial source
+    if (tracks.length) {
+      player.src = tracks[current];
+    }
     updateTrackTitle();
 
-    //passage automatique au son suivant
     player.addEventListener('ended', () =>{
         current = (current + 1) % tracks.length;
         player.src = tracks[current];
@@ -38,13 +41,12 @@ export  function intializeRadio()
         player.play();
     });
 
-    //formattage du temps
-    function    formatTime(seconds){
+    function formatTime(seconds){
         const min = Math.floor(seconds / 60);
         const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
          return `${min}:${sec}`;
     }
-    //MAJ de la barre de progression
+
     player.addEventListener('timeupdate', () => {
         if(player.duration)
         {
@@ -56,97 +58,127 @@ export  function intializeRadio()
         }
     });
 
-    //Changer la position sur la barre
+    // corrige : appliquer la nouvelle position au player
     progressBar.addEventListener('input', () => {
         if(player.duration)
         {
-            const currentTime = (progressBar.value / 100) *player.duration;
-        }
-    });
-    
-    //display de la radio par le toggle
-    toggleBtn.addEventListener('click', () => {
-        if (!isVisible) {
-            // Afficher le player
-            customPlayer.style.display = 'flex';
-            player.play();
-            gsap.fromTo(customPlayer,
-                { opacity: 0, scale: 0.8 },
-                {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        isVisible = true;
-                        toggleBtn.classList.add('active');
-                        playBtn.classList.toggle('active', isPlaying);
-                    }
-                }
-                
-            );
-        } else {
-            // Masquer le player
-            player.pause();
-            gsap.to(customPlayer, {
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.5,
-                ease: "power2.in",
-                onComplete: () => {
-                    customPlayer.style.display = 'none';
-                    isVisible = false;
-                    toggleBtn.classList.remove('active');
-                    playBtn.classList.remove('active');
-                }
-            });
-            // Pause la radio si elle joue
-            if (isPlaying) {
-                player.pause();
-                isPlaying = false;
-            }
+            const currentTime = (progressBar.value / 100) * player.duration;
+            player.currentTime = currentTime;
         }
     });
 
-    // Bouton play/pause actif
-    playBtn.addEventListener('click', () => {
-        if (!isPlaying) {
-            player.play();
-            isPlaying = true;
-            playBtn.classList.add('active');
-            toggleBtn.classList.add('active');
-            if (!isVisible) {
-                customPlayer.style.display = 'flex';
-                gsap.fromTo(customPlayer,
-                    { opacity: 0, scale: 0.8 },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.5,
-                        ease: "power2.out",
-                        onComplete: () => {
-                            isVisible = true;
-                        }
-                    }
-                );
+    // helper pour afficher le player
+    function showPlayer() {
+      if (!isVisible) {
+        customPlayer.style.display = 'flex';
+        gsap.fromTo(customPlayer,
+          { opacity: 0, scale: 0.8 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.25,
+            ease: "power2.out",
+            onComplete: () => {
+              isVisible = true;
+              toggleBtn.classList.add('active');
             }
-        } else {
-            player.pause();
-            isPlaying = false;
-            playBtn.classList.remove('active');
+          }
+        );
+      }
+    }
+
+    function hidePlayer() {
+      if (isVisible) {
+        gsap.to(customPlayer, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.25,
+          ease: "power2.in",
+          onComplete: () => {
+            customPlayer.style.display = 'none';
+            isVisible = false;
             toggleBtn.classList.remove('active');
-            if (isVisible) {
-                gsap.to(customPlayer, {
-                    opacity: 0,
-                    scale: 0.8,
-                    duration: 0.5,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        customPlayer.style.display = 'none';
-                        isVisible = false;
-                    }
-                });
-            }
-        }
+          }
+        });
+      }
+    }
+
+    // display toggle (conserve ton comportement)
+    toggleBtn.addEventListener('click', () => {
+      if (!isVisible) {
+        showPlayer();
+        player.play();
+        isPlaying = true;
+        playBtn.classList.add('active');
+      } else {
+        hidePlayer();
+        player.pause();
+        isPlaying = false;
+        playBtn.classList.remove('active');
+      }
     });
+
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        player.play();
+        isPlaying = true;
+        playBtn.classList.add('active');
+        showPlayer();
+      } else {
+        player.pause();
+        isPlaying = false;
+        playBtn.classList.remove('active');
+      }
+    });
+
+    // API exposée pour contrôler la radio depuis d'autres modules
+    function playUrl(url) {
+      if (!url) return;
+      // si c'est une url qui existe dans la playlist, utiliser son index
+      const idx = tracks.indexOf(url);
+      if (idx !== -1) {
+        current = idx;
+      } else {
+        // ajouter temporairement en tête et l'utiliser
+        tracks.unshift(url);
+        current = 0;
+      }
+      player.src = tracks[current];
+      updateTrackTitle();
+      showPlayer();
+      player.play();
+      isPlaying = true;
+      playBtn.classList.add('active');
+    }
+
+    function playIndex(i) {
+      if (i < 0 || i >= tracks.length) return;
+      current = i;
+      player.src = tracks[current];
+      updateTrackTitle();
+      showPlayer();
+      player.play();
+      isPlaying = true;
+      playBtn.classList.add('active');
+    }
+
+    function setTracks(newTracks) {
+      if (!Array.isArray(newTracks)) return;
+      tracks = newTracks.slice();
+      current = 0;
+      player.src = tracks[0] || '';
+      updateTrackTitle();
+    }
+
+    function getState() {
+      return { current, isPlaying, isVisible, tracks: tracks.slice() };
+    }
+
+    // retourne l'API
+    return {
+      playUrl,
+      playIndex,
+      setTracks,
+      getState
+    };
 }

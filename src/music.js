@@ -1,6 +1,8 @@
 import './style.css';
-import'./music.css'
+import './music.css';
 import { openHeader } from './header';
+import { intializeRadio } from './radio.js';
+
 document.querySelector('#app').innerHTML = `
 
 <header class="site-header">
@@ -19,60 +21,27 @@ document.querySelector('#app').innerHTML = `
 
 <div class="music-playlist">
         
-  <div class="music-item">
+  <div class="music-item" data-audio="./audio/Give_me_your_hand.mp3">
     <div class="music-cover">
       <img src="./icons/music-cover.svg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1>
+      <div class="music-title"><h1>Title 1</h1></div>
+      <div class="music-2nd-info">
+        <a class="music-artist">Artist</a>
+        <a class="music-project">Project-Info</a>
       </div>
-      
-        <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
-        </div>
-      </div>
-  </div>
-
-  <div class="music-item">
-    <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
-    </div>
-    <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
-      
-        <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
-        </div>
-      </div>
-  </div>
-  
-  <div class="music-item">
-    <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
-    </div>
-    <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
-      
-        <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
-        </div>
     </div>
   </div>
 
-  <div class="music-item">
-    <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
-    </div>
+  <div class="music-item" data-audio="./audio/track2.mp3">
+    <div class="music-cover"><img src="./icons/music-cover.svg" alt=""></div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
-      
-        <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
-        </div>
+      <div class="music-title"><h1>Title 2</h1></div>
+      <div class="music-2nd-info">
+        <a class="music-artist">Artist</a>
+        <a class="music-project">Project Info</a>
+      </div>
     </div>
   </div>
   
@@ -84,7 +53,35 @@ document.querySelector('#app').innerHTML = `
       <div class="music-title"><h1>Title</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
+          <a href="./src/providers.js" class="music-artist">Artist</a>
+          <a href="./src/details/music/" class="music-project">Project Info</a>
+        </div>
+    </div>
+  </div>
+
+  <div class="music-item">
+    <div class="music-cover">
+      <img src="./icons/music-cover.svg" alt="">
+    </div>
+    <div class="music-info">
+      <div class="music-title"><h1>Title</h1></div>
+      
+        <div class = "music-2nd-info">
+          <a href="./src/providers.js" class="music-artist">Artist</a>
+          <a href="./src/details/music/" class="music-project">Project Info</a>
+        </div>
+    </div>
+  </div>
+  
+  <div class="music-item">
+    <div class="music-cover">
+      <img src="./icons/music-cover.svg" alt="">
+    </div>
+    <div class="music-info">
+      <div class="music-title"><h1>Title</h1></div>
+      
+        <div class = "music-2nd-info">
+          <a href="./src/providers.js" class="music-artist">Artist</a>
           <a href="./src/details/music/" class="music-project">Project Info</a>
         </div>
       </div>
@@ -98,7 +95,7 @@ document.querySelector('#app').innerHTML = `
       <div class="music-title"><h1>Title</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
+          <a href="./src/providers.js" class="music-artist">Artist</a>
           <a href="./src/details/music/" class="music-project">Project Info</a>
         </div>
       </div>
@@ -112,7 +109,7 @@ document.querySelector('#app').innerHTML = `
       <div class="music-title"><h1>Title</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
+          <a href="./src/providers.js" class="music-artist">Artist</a>
           <a href="./src/details/music/" class="music-project">Project Info</a>
         </div>
       </div>
@@ -125,7 +122,7 @@ document.querySelector('#app').innerHTML = `
       <div class="music-title"><h1>Title</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
+          <a href="./src/providers.js" class="music-artist">Artist</a>
           <a href="./src/details/music/" class="music-project">Project Info</a>
         </div>
       </div>
@@ -138,7 +135,7 @@ document.querySelector('#app').innerHTML = `
       <div class="music-title"><h1>Title</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Arist</a>
+          <a href="./src/providers.js" class="music-artist">Artist</a>
           <a href="./src/details/music/" class="music-project">Project Info</a>
         </div>
       </div>
@@ -168,3 +165,19 @@ document.querySelector('#app').innerHTML = `
 `;
 
 openHeader();
+
+// initialise le player et récupère l'API
+const radio = intializeRadio();
+
+// Attacher les listeners sur les items pour jouer la piste associée
+document.querySelectorAll('.music-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const src = item.getAttribute('data-audio');
+    if (!src) return;
+    radio.playUrl(src);
+
+    // marque visuellement l'item actif (facultatif)
+    document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
