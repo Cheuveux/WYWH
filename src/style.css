@@ -28,9 +28,17 @@
   -moz-osx-font-smoothing: grayscale;
 
   --spe-font-color: rgb(142, 167, 167);
+
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
 }
 
-
+/* WebKit (Chrome, Safari, Edge) */
+.music-playlist::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+}
 
 body {
   margin: 0;
@@ -278,6 +286,7 @@ h1 {
 }
 
 #radio-toggle.active {
+  color: var(--spe-font-color);
   filter: invert(54%) sepia(100%) saturate(500%) hue-rotate(300deg);
   animation: spin 3s linear infinite;
 }
@@ -320,7 +329,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   width: center;
-  color: #ff66b2;
+  color: var(--spe-font-color);
 }
 .progress-container {
   display: flex;

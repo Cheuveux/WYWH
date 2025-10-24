@@ -2,6 +2,7 @@ import './style.css';
 import './music.css';
 import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
+import { AnimRadio } from './anim_radio.js';
 
 document.querySelector('#app').innerHTML = `
 
@@ -26,7 +27,7 @@ document.querySelector('#app').innerHTML = `
       <img src="./icons/music-cover.svg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title 1</h1></div>
+      <div class="music-title"><h1>Give_me_your_hand</h1></div>
       <div class="music-2nd-info">
         <a class="music-artist">Artist</a>
         <a class="music-project">Project-Info</a>
@@ -165,6 +166,7 @@ document.querySelector('#app').innerHTML = `
 `;
 
 openHeader();
+AnimRadio();
 
 // initialise le player et récupère l'API
 const radio = intializeRadio();
