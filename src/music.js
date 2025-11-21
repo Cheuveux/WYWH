@@ -4,7 +4,7 @@ import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
 
-document.querySelector('#musicApp').innerHTML = `
+document.querySelector('#app').innerHTML = `
 
 <header class="site-header">
     <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
