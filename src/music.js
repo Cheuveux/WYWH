@@ -22,122 +22,112 @@ document.querySelector('#app').innerHTML = `
 
 <div class="music-playlist">
         
-  <div class="music-item" data-audio="./audio/Give_me_your_hand.mp3">
-    <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
-    </div>
+  
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/808ADAM%20-%20AFTER%20ft.%20Pico%20%26%20Lowkey.wav">
+    <div class="music-cover"><img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/808adam_Lowkey_pico_after.jpg" alt=""></div>
     <div class="music-info">
-      <div class="music-title"><h1>Give_me_your_hand</h1></div>
+      <div class="music-title"><h1>After</h1></div>
       <div class="music-2nd-info">
-        <a class="music-artist">Artist</a>
-        <a class="music-project">Project-Info</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="music-item" data-audio="./audio/track2.mp3">
-    <div class="music-cover"><img src="./icons/music-cover.svg" alt=""></div>
-    <div class="music-info">
-      <div class="music-title"><h1>Title 2</h1></div>
-      <div class="music-2nd-info">
-        <a class="music-artist">Artist</a>
-        <a class="music-project">Project Info</a>
+        <a class="music-artist">808 Adam, Pico</a>
+        <a class="music-project">After-Single</a>
       </div>
     </div>
   </div>
   
-  <div class="music-item">
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/808ADAM%2C%20Chateau%20Rouge%20-%20Martyr%20remix.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/Chateau_rrouge_martrys_remix_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Martyr (remix) </h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">808 Adam, Chateau Rouge</a>
+          <a href="./src/details/music/" class="music-project">Martyr (remix) - Single</a>
         </div>
     </div>
   </div>
 
-  <div class="music-item">
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/Lowkey%2C%20808ADAM%20-%20Celestia.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/loweky_support_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Celestia</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">Lowkey, 808 Adam</a>
+          <a href="./src/details/music/" class="music-project">LOWKEYSUPPORTS - EP</a>
         </div>
     </div>
   </div>
   
-  <div class="music-item">
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/Lowkey%2C%20808ADAM%20-%20Tout%20changer.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/loweky_support_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Tout Changer</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">Lowkey, 808 Adam</a>
+          <a href="./src/details/music/" class="music-project">LOWKEYSUPPORTS - EP</a>
         </div>
       </div>
   </div>
 
-  <div class="music-item">
-    <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+  <div class="music-item" data-audio = "https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/808ADAM%20-%20Aquarius.wav">
+    <div class="music-cover" >
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/Escape_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Aquarius</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">808 Adam</a>
+          <a href="./src/details/music/" class="music-project">Escape - EP</a>
         </div>
       </div>
   </div>
 
-  <div class="music-item">
+  <div class="music-item" data-audio = "https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/808ADAM%20-%20Slow.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/slow_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Slow</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">808 Adam</a>
+          <a href="./src/details/music/" class="music-project">Slow - Single</a>
         </div>
       </div>
   </div>
-  <div class="music-item">
+
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/808ADAM%20-%20SIDE%20ft.%20Pico.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/Escape_808adam.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Side ft. Pico</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">808 Adam</a>
+          <a href="./src/details/music/" class="music-project">Escape - EP</a>
         </div>
       </div>
   </div>
-  <div class="music-item">
+
+  <div class="music-item" data-audio="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-track/AntoineBertoli%2CLowkey%2CP2000-%20Underwater.wav">
     <div class="music-cover">
-      <img src="./icons/music-cover.svg" alt="">
+      <img src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/music/music-cover/underwater_bertoli.jpg" alt="">
     </div>
     <div class="music-info">
-      <div class="music-title"><h1>Title</h1></div>
+      <div class="music-title"><h1>Slow ft. Pico, P2000</h1></div>
       
         <div class = "music-2nd-info">
-          <a href="./src/providers.js" class="music-artist">Artist</a>
-          <a href="./src/details/music/" class="music-project">Project Info</a>
+          <a href="./src/providers.js" class="music-artist">Bertoli</a>
+          <a href="./src/details/music/" class="music-project">Slow ft. Pico, P2000 - Single</a>
         </div>
       </div>
   </div>
@@ -147,7 +137,7 @@ document.querySelector('#app').innerHTML = `
 </div>
 
 <div class="audio-footer">
-    <img  class="radio-toggle" id="radio-toggle" src="./icons/radio-opener.svg" alt="Radio toggle" />
+    <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
         <div id="track-title" class="track-title"></div>
           

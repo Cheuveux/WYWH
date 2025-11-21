@@ -286,12 +286,9 @@ h1 {
 }
 
 #radio-toggle.active {
-  color: var(--spe-font-color);
-  filter: invert(54%) sepia(100%) saturate(500%) hue-rotate(300deg);
   animation: spin 3s linear infinite;
 }
 #radio-toggle.active:hover {
-  filter: invert(54%) sepia(100%) saturate(500%) hue-rotate(300deg);
   animation: reversespin 3s linear infinite;
 }
 

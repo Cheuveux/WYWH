@@ -1,5 +1,5 @@
 
-
+import { gsap } from "gsap";
 export function intializeRadio() {
     const player = document.getElementById('radio-player');
     const toggleBtn = document.getElementById('radio-toggle');
@@ -20,10 +20,18 @@ export function intializeRadio() {
     }
 
     function updateTrackTitle() {
-      const path = tracks[current] || '';
-      const fileName = path.split('/').pop() || '';
-      if (trackTitle) trackTitle.textContent = fileName.replace(/\.[^/.]+$/, "");
-    }
+      const active = document.querySelector('.music-item.active');
+      if (active) {
+        const title = active.querySelector('.music-title h1')?.textContent?.trim() || '';
+        const artist = active.querySelector('.music-artist')?.textContent?.trim() || '';
+        if (trackTitle)
+          trackTitle.textContent = artist ? `${title} - ${artist}` : title;
+      } else {
+        const path = tracks[current] || '';
+        const fileName = decodeURIComponent(path.split('/').pop() || '');
+        if (trackTitle) trackTitle.textContent = fileName.replace(/\.[^/.]+$/, "");
+      }
+}
 
     if (tracks.length && player) player.src = tracks[current];
     updateTrackTitle();
