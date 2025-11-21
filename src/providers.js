@@ -2,6 +2,7 @@ import './style.css';
 import'./providers.css'
 import { openHeader } from './header';
 import { providerCard } from './providersCard';
+import { init3DCarousel } from './3Dcarousel';
 
 
 document.querySelector('#app').innerHTML = `
@@ -116,5 +117,5 @@ document.querySelector('#app').innerHTML = `
 `;
 
 openHeader();
-providerCard();
+init3DCarousel();
 

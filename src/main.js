@@ -6,6 +6,7 @@ import { intializeRadio } from './radio.js';
 import { openHeader} from './header.js';
 
 
+
 document.querySelector('#app').innerHTML = `
 
   <header class="site-header">
@@ -100,6 +101,7 @@ shuffle();
 initializeCards();
 initializeHomeSwiper();
 intializeRadio();
+
 
 
 
