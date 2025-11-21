@@ -4,13 +4,13 @@ import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
 
-document.querySelector('#app').innerHTML = `
+document.querySelector('#musicApp').innerHTML = `
 
 <header class="site-header">
     <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
       <img  src="./icons/menu-icon.svg" alt="Radio toggle" />
     </button>
-    <h1 class="logo">wishyouwerehere<span>.world</span></h1>
+    <a href="${import.meta.env.BASE_URL}index.html"><h1 class="logo">wishyouwerehere<span>.world</span></h1></a>
     <nav id="main-nav" class="main-nav">
           <a class="nav-item" href="./music.html">wishyouwerehere<span>.music</span></a>
           <a class="nav-item" href="./photo.html">wishyouwerehere<span>.photo</span></a>
