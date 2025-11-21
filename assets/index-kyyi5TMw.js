@@ -96,7 +96,7 @@
   </div>
 
   <div class="audio-footer">
-    <img  class="radio-toggle" id="radio-toggle" src=".https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
+    <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
         <div id="track-title" class="track-title"></div>
           
