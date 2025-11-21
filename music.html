@@ -8,6 +8,12 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/music.js"></script>
+    <script>
+      const base = location.pathname.startsWith('/WYWH/') ? '/WYWH' : '';
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = `${base}/src/music.js`;
+      document.body.appendChild(script);
+  </script>
   </body>
 </html>
