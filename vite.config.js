@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     tailwindcss(),
     createHtmlPlugin({
-      minify: true, // Minifie les fichiers HTML
+      minify: false, // Minifie les fichiers HTML
       pages: {
         index: './src/index.html',
         music: './src/music.html',
