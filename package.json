@@ -17,6 +17,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.14",
     "vite": "^7.1.7",
+    "vite-plugin-html": "^3.2.2",
     "vite-plugin-multi-html": "^1.0.0"
   },
   "dependencies": {
