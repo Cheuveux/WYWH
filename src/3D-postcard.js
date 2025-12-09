@@ -78,7 +78,7 @@ export function postcard(container, rectoPath, versoPath) {
 
   // === Caméra ===
   const camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 0.1, 100);
-  const cameraDistance = isMobile ? 12 : 14;
+  const cameraDistance = isMobile ? 9 : 14;
   camera.position.set(0, 0, cameraDistance);
 
   // === Rendu ===
@@ -235,7 +235,7 @@ export function postcard(container, rectoPath, versoPath) {
     const newIsMobile = window.innerWidth < 768;
     const newCardWidth = newIsMobile ? 5 : 10;
     const newCardHeight = newIsMobile ? 3.5 : 7;
-    const newCameraDistance = newIsMobile ? 7 : 15;
+    const newCameraDistance = newIsMobile ? 9 : 15;
 
     if (geometry.parameters.width !== newCardWidth) {
       geometry.dispose();

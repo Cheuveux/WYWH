@@ -4,6 +4,9 @@ import { Navigation, Pagination, EffectCoverflow, Keyboard } from 'swiper/module
 import { postcard } from './3D-postcard.js';
 
 export function initializeHomeSwiper() {
+  
+  const isMobile = window.innerWidth < 768;
+  
   const swiper = new Swiper('.swiper', {
     modules: [Navigation, Pagination, EffectCoverflow, Keyboard],
     // grabCursor: true,
@@ -13,6 +16,7 @@ export function initializeHomeSwiper() {
     speed: 1000,
     spaceBetween: 100,
 
+    direction :  isMobile ? 'vertical' : 'horizontal',
     // pagination: {
     //   clickable: true,
     // },
