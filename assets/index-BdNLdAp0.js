@@ -3867,9 +3867,14 @@ void main() {
 <div class="swiper home-carroussel">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
-      <div class="card" data-content="postcard wywh.png|back.png">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB13.jpg | https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB14.jpg">
         <div class="card-inner"></div>
       </div>
+       <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      </h2>
     </div>
     <div class="swiper-slide">
       <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB2.jpg">
@@ -3915,6 +3920,11 @@ void main() {
       <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB9.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB10.jpg">
         <div class="card-inner"></div>
       </div>
+       <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      <h2/>
     </div>
   </div>
 </div>
