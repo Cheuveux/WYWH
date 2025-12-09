@@ -10,14 +10,12 @@ import { openHeader} from './header.js';
 document.querySelector('#app').innerHTML = `
 
     <header class="site-header">
-    <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
-      <img src="./icons/menu-icon.svg" alt="Radio toggle" />
-    </button>
     <h1 class="logo"><img src ="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/Logo%20PNG.svg"/></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html">wishyouwerehere<span>.photo</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.providers</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.shop</span></a>
     </nav>
   </header>
 

@@ -72,103 +72,107 @@ body {
 
 /* Header style */
 header {
-  position: fixed;
+  z-index: 99;
 }
+
 .site-header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
+  flex-direction: column;
+  align-items: center; /* Centre le logo sur desktop */
+  padding: 1rem 2rem;
+  z-index: 1000;
 }
 
 .logo {
   width: 520px;
-  color: rgb(70, 70, 70);
-  letter-spacing: 0px;
-  line-height: 1.1;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
 }
 
+.logo:hover {
+  opacity: 0.8;
+}
 
 .logo > img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
+/* CACHE LE BOUTON MENU */
 .menu-button {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.menu-button:hover {
-  scale: 1.1;
+  display: none;
 }
 
 .main-nav {
-  position: fixed;
-  z-index: 11;
-  left: 0%;
-  top: 10%;
-  transform: translateX(-100%);
-  display: flex;
+  display: none;
+  opacity: 0;
+  transform: translateY(-20px);
   flex-direction: column;
-  gap: 20px;
-  justify-content: flex-start;
-  align-items: flex-start;
+  gap: 0.2rem;
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  align-self: center; /* Centre le menu aussi */
 }
-
-
 
 a {
   font-weight: 500;
-  color:#555;
+  color: #555;
   text-decoration: none;
 }
+
 a:hover,
 .nav-item span:hover {
-  color:  rgb(75, 107, 107);
+  color: rgb(75, 107, 107);
+}
+
+.nav-item {
+  font-size: 3.5rem;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.nav-item:last-child {
+  border-bottom: none;
 }
 
 .nav-item span {
   font-family: "Acumin-italic", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-style: italic;
-  color:  var(--spe-font-color);
-  
+  color: black;
 }
 
-@media screen and (max-width : 650px) {
-
+@media screen and (max-width: 650px) {
   .site-header {
-    padding: 0.5rem 0rem;
+    padding: 0.8rem 1rem;
+    align-items: flex-start; /* Aligne à gauche sur mobile */
   }
 
   .logo {
-    margin-top: 0.5rem;
     width: 330px;
-    font-size: 1.6rem;
+    margin-top: 0.5rem;
   }
-    
+
   .logo > img {
     width: 100%;
-}
-  .menu-button {
-    width: 24px;
-    height: 24px;
-    left: 0;
   }
 
   .main-nav {
-    top: 78;
-    gap: 5px;
+    width: calc(100% - 2rem);
+    align-self: flex-start; /* Aligne le menu à gauche sur mobile */
+  }
+
+  .nav-item {
+    font-size: 1rem;
   }
 }
+
 /* HOME-CAROUSSEL */
 
 .swiper {
@@ -259,7 +263,7 @@ a:hover,
     margin: 0;
     width: 100%;
     height: 80%;
-    padding-top: 4rem; /* Réduit le padding sur mobile */
+    margin-top: 1rem; /* Réduit le padding sur mobile */
   }
 
 
