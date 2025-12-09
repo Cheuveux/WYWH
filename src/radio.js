@@ -1,4 +1,3 @@
-
 import { gsap } from "gsap";
 export function intializeRadio() {
     const player = document.getElementById('radio-player');
@@ -114,8 +113,8 @@ export function intializeRadio() {
       if (idx !== -1) current = idx;
       else { tracks.unshift(url); current = 0; }
       player.src = tracks[current];
-      updateTrackTitle();
       showPlayer();
+      updateTrackTitle();
       player.play();
     }
 
@@ -124,9 +123,9 @@ export function intializeRadio() {
       if (i < 0 || i >= tracks.length) return;
       current = i;
       player.src = tracks[current];
-      updateTrackTitle();
       showPlayer();
       player.play();
+      updateTrackTitle(); // Appelle la mise à jour du titre après avoir lancé la lecture
     }
 
     function setTracks(newTracks) {
@@ -155,37 +154,27 @@ export function intializeRadio() {
       const currentSrc = player.src ? new URL(player.src, location.href).href : '';
 
       if (currentSrc === resolved) {
-        // même piste : se baser sur player.paused (état réel)
         if (!player.paused) {
-          // émettre un event immédiat pour que l'UI masque la visualisation sans attendre l'animation
           emit('radio:hide-request', { src: resolved });
-
-          // arrêter la lecture et masquer le player
           player.pause();
           hidePlayer();
-
-          // émettre pause/stop (player.pause() déclenchera aussi 'radio:pause' via l'écouteur)
           emit('radio:stopped', { src: resolved });
         } else {
-          // demander l'affichage immédiat avant play
           emit('radio:show-request', { src: resolved });
-
           showPlayer();
           player.play();
-          // 'play' event sera émis par l'écouteur du player
         }
         return;
       }
 
-      // piste différente → jouer la nouvelle
       emit('radio:show-request', { src: resolved });
 
       const idx = tracks.indexOf(url);
       if (idx !== -1) current = idx; else { tracks.unshift(url); current = 0; }
       player.src = tracks[current];
-      updateTrackTitle();
       showPlayer();
       player.play();
+      updateTrackTitle(); // Appelle la mise à jour du titre après avoir lancé la lecture
     }
 
     return { playUrl, playIndex, setTracks, getState, toggleUrl };

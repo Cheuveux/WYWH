@@ -1,5 +1,5 @@
 import './style.css'
-import { initializeCards } from './card.js';
+import { postcard } from './3D-postcard.js';
 import { initializeHomeSwiper } from './home-swiper.js';
 import { shuffle } from './shuffle.js';
 import { intializeRadio } from './radio.js';
@@ -13,7 +13,7 @@ document.querySelector('#app').innerHTML = `
     <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
       <img src="./icons/menu-icon.svg" alt="Radio toggle" />
     </button>
-    <h1 class="logo">wishyouwerehere<span>.world</span></h1>
+    <h1 class="logo"><img src ="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/Logo%20PNG.svg"/></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html">wishyouwerehere<span>.photo</span></a>
@@ -22,57 +22,60 @@ document.querySelector('#app').innerHTML = `
   </header>
 
 
-  <div class="swiper home-carroussel">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-zine/postcard wywh.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-zine/back.png" alt=""></div>
-          </div>
-        </div>
+<div class="swiper home-carroussel">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <div class="card" data-content="postcard wywh.png|back.png">
+        <div class="card-inner"></div>
       </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-zine/postcard wywh7.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-zine/back.png" alt=""></div>
-          </div>
-        </div>
+    </div>
+    <div class="swiper-slide">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB2.jpg">
+        <div class="card-inner"></div>
       </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-zine/postcard wywh19.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-zine/back.png" alt=""></div>
-          </div>
-        </div>
+      <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      </h2>
+    </div>
+    <div class="swiper-slide">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB3.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB4.jpg">
+        <div class="card-inner"></div>
       </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB2.png" alt=""></div>
-          </div>
-        </div>
+        <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      </h2>
+    </div>
+    <div class="swiper-slide">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB5.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB6.jpg">
+        <div class="card-inner"></div>
       </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB3.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB4.png" alt=""></div>
-          </div>
-        </div>
+            <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      </h2>
+    </div>
+    <div class="swiper-slide">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB7.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB8.jpg">
+        <div class="card-inner"></div>
       </div>
-      <div class="swiper-slide">
-       <div class="card">
-          <div class="card-inner">
-            <div class="card-front"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB7.png" alt=""></div>
-            <div class="card-back"><img src="./img/post-card/postcart-antoine/postcard wywh 2 AB8.png" alt=""></div>
-          </div>
-        </div>
+            <h2 class="project-info">
+        <a href="" class="artist-info">Antoine Bertoli</a>
+        <p>-</p>
+        <a href="" class="location">Japan, Kyoto</a>
+      </h2>
+    </div>
+    <div class="swiper-slide">
+      <div class="card" data-content="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB9.jpg|https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/photos/post-card/Antoine_Bertoli_2025/postcard%20wywh%202%20AB10.jpg">
+        <div class="card-inner"></div>
+      </div>
     </div>
   </div>
+</div>
 
   <div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
@@ -96,7 +99,7 @@ document.querySelector('#app').innerHTML = `
 /*Ordre important !! */
 openHeader();
 shuffle();
-initializeCards();
+postcard();
 initializeHomeSwiper();
 intializeRadio();
 
