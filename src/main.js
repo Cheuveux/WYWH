@@ -4,7 +4,7 @@ import { initializeHomeSwiper } from './home-swiper.js';
 import { shuffle } from './shuffle.js';
 import { intializeRadio } from './radio.js';
 import { openHeader} from './header.js';
-
+import { initWeather } from './weather.js';
 
 
 document.querySelector('#app').innerHTML = `
@@ -110,7 +110,7 @@ shuffle();
 postcard();
 initializeHomeSwiper();
 intializeRadio();
-
+initWeather();
 
 
 
