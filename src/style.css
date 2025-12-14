@@ -640,7 +640,6 @@ a:hover,
   left: 50%;
   transform: translateX(-50%);
   padding: .5rem;
-  z-index: 9999;
   width: 90%;
   max-width: 420px;
   color: var(--text-color);
