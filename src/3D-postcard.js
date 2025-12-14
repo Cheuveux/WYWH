@@ -6,10 +6,13 @@ export function postcard(container, rectoPath, versoPath) {
 
   const textureLoader = new THREE.TextureLoader();
 
-  // Charge la texture recto
+  // ✅ Configuration pour préserver les couleurs originales
   const rectoTexture = textureLoader.load(
     rectoPath,
-    () => {
+    (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
       console.log(`Recto texture loaded: ${rectoPath}`);
     },
     undefined,
@@ -18,10 +21,12 @@ export function postcard(container, rectoPath, versoPath) {
     }
   );
 
-  // Charge la texture verso
   const versoTexture = textureLoader.load(
     versoPath,
-    () => {
+    (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
       console.log(`Verso texture loaded: ${versoPath}`);
     },
     undefined,
@@ -30,21 +35,31 @@ export function postcard(container, rectoPath, versoPath) {
     }
   );
 
-  // === Détection responsive : mobile vs desktop ===
+  // === Détection responsive ===
   const isMobile = window.innerWidth < 768;
   const cardWidth = isMobile ? 5 : 10;
   const cardHeight = isMobile ? 3.5 : 7;
 
-  // === Géométrie et matériaux ===
+  // === Géométrie et matériaux NATURELS ===
   const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
-  const materialRecto = new THREE.MeshStandardMaterial({ map: rectoTexture });
-  const materialVerso = new THREE.MeshStandardMaterial({ map: versoTexture });
+  
+  // ✅ MeshBasicMaterial = rendu fidèle sans éclairage artificiel
+  const materialRecto = new THREE.MeshBasicMaterial({ 
+    map: rectoTexture,
+    side: THREE.FrontSide,
+    toneMapped: false
+  });
+  
+  const materialVerso = new THREE.MeshBasicMaterial({ 
+    map: versoTexture,
+    side: THREE.FrontSide,
+    toneMapped: false
+  });
 
   const meshRecto = new THREE.Mesh(geometry, materialRecto);
   const meshVerso = new THREE.Mesh(geometry, materialVerso);
   meshVerso.rotation.y = Math.PI;
 
-  // Groupe pour gérer la rotation de la carte
   const cardGroup = new THREE.Group();
   cardGroup.add(meshRecto);
   cardGroup.add(meshVerso);
@@ -52,39 +67,25 @@ export function postcard(container, rectoPath, versoPath) {
   const scene = new THREE.Scene();
   scene.add(cardGroup);
 
-  // === Ajout de lumières ===
-  const ambientLight = new THREE.AmbientLight(0xFFfffF, 3);
-  scene.add(ambientLight);
-
-  // === Lumière directionnelle uniquement pour le verso ===
-  const backLight = new THREE.DirectionalLight(0xFeeeeF, 0.5); // Lumière blanche intense
-  backLight.position.set(0, 0, -5); // Positionnée derrière la carte (côté verso)
-  backLight.target = cardGroup; // Cible le groupe de la carte
-  scene.add(backLight);
-
-  // Limite la lumière au verso uniquement
-  meshVerso.material = new THREE.MeshStandardMaterial({ 
-    map: versoTexture,
-    side: THREE.FrontSide // Affecte seulement la face visible
-  });
-
-  // Le recto reste avec la lumière ambiante uniquement
-  meshRecto.material = new THREE.MeshStandardMaterial({ 
-    map: rectoTexture,
-    side: THREE.FrontSide,
-    emissive: 0x000000, // Pas d'émission
-    emissiveIntensity: 0 // Pas d'effet lumineux propre
-  });
-
   // === Caméra ===
   const camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 0.1, 100);
   const cameraDistance = isMobile ? 9 : 14;
   camera.position.set(0, 0, cameraDistance);
 
-  // === Rendu ===
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  // === Rendu avec paramètres optimisés ===
+  const renderer = new THREE.WebGLRenderer({ 
+    antialias: true, 
+    alpha: true,
+    preserveDrawingBuffer: true
+  });
+  
+  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  
   renderer.setSize(container.offsetWidth, container.offsetHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
   container.appendChild(renderer.domElement);
 
   // === Contrôles orbitaux ===
@@ -92,104 +93,121 @@ export function postcard(container, rectoPath, versoPath) {
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.enableZoom = false;
-  controls.enablePan = false; // Empêche le déplacement
+  controls.enablePan = false;
   controls.maxDistance = cameraDistance;
   controls.minDistance = cameraDistance;
 
   // === Variables pour l'état de la carte ===
-  let isFlipped = false; // false = recto visible, true = verso visible
-  let isAnimating = false; // Empêche les clics pendant l'animation
+  let isFlipped = false;
+  let isAnimating = false;
 
-  // === Fonction pour retourner la carte ===
-  function flipCard() {
-    if (isAnimating) return; // Empêche les clics multiples
+  // === Variables pour détecter le drag vs click ===
+  let mouseDownPosition = { x: 0, y: 0 };
+  let hasDragged = false;
 
-    isAnimating = true;
-    isFlipped = !isFlipped;
+  // ✅ DÉTECTION DU DRAG
+  renderer.domElement.addEventListener('mousedown', (event) => {
+    mouseDownPosition = { x: event.clientX, y: event.clientY };
+    hasDragged = false;
+  });
 
-    const flipDuration = 800; // Durée de l'animation en ms
-    const startRotation = {
-      x: cardGroup.rotation.x,
-      y: cardGroup.rotation.y,
-      z: cardGroup.rotation.z
-    };
-    
-    const targetRotation = {
-      x: 0, // Remet bien de face sur l'axe X
-      y: isFlipped ? Math.PI : 0, // π = verso, 0 = recto
-      z: 0 // Remet bien de face sur l'axe Z
-    };
-
-    const startTime = Date.now();
-
-    function animateFlip() {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / flipDuration, 1);
-
-      // Interpolation avec effet "ease-in-out" pour une animation plus fluide
-      const easeProgress = progress < 0.5
-        ? 2 * progress * progress
-        : -1 + (4 - 2 * progress) * progress;
-
-      cardGroup.rotation.x = startRotation.x + (targetRotation.x - startRotation.x) * easeProgress;
-      cardGroup.rotation.y = startRotation.y + (targetRotation.y - startRotation.y) * easeProgress;
-      cardGroup.rotation.z = startRotation.z + (targetRotation.z - startRotation.z) * easeProgress;
-
-      if (progress < 1) {
-        requestAnimationFrame(animateFlip);
-      } else {
-        isAnimating = false;
+  renderer.domElement.addEventListener('mousemove', (event) => {
+    if (mouseDownPosition.x !== 0 || mouseDownPosition.y !== 0) {
+      const deltaX = Math.abs(event.clientX - mouseDownPosition.x);
+      const deltaY = Math.abs(event.clientY - mouseDownPosition.y);
+      
+      // Si mouvement > 5px, c'est un drag
+      if (deltaX > 5 || deltaY > 5) {
+        hasDragged = true;
       }
     }
+  });
 
-    animateFlip();
-  }
+  // ✅ CLIC (sans drag) = RESET
+  renderer.domElement.addEventListener('mouseup', (event) => {
+    if (!hasDragged) {
+      console.log('🖱️ Clic détecté - Reset au recto');
+      clearTimeout(resetTimeout);
+      resetToFront();
+    }
+    mouseDownPosition = { x: 0, y: 0 };
+    hasDragged = false;
+  });
 
-  // === Gestion du clic sur le canvas ===
-  renderer.domElement.addEventListener('click', (event) => {
-    // Annule le timer de reset automatique si actif
-    clearTimeout(resetTimeout);
-    
-    // Réinitialise la position de la carte (bien de face)
-    resetCardPosition();
+  // ✅ SUPPORT TACTILE (mobile)
+  let touchStartPosition = { x: 0, y: 0 };
+  let touchHasDragged = false;
+
+  renderer.domElement.addEventListener('touchstart', (event) => {
+    if (event.touches.length === 1) {
+      touchStartPosition = { 
+        x: event.touches[0].clientX, 
+        y: event.touches[0].clientY 
+      };
+      touchHasDragged = false;
+    }
+  });
+
+  renderer.domElement.addEventListener('touchmove', (event) => {
+    if (event.touches.length === 1 && touchStartPosition.x !== 0) {
+      const deltaX = Math.abs(event.touches[0].clientX - touchStartPosition.x);
+      const deltaY = Math.abs(event.touches[0].clientY - touchStartPosition.y);
+      
+      if (deltaX > 5 || deltaY > 5) {
+        touchHasDragged = true;
+      }
+    }
+  });
+
+  renderer.domElement.addEventListener('touchend', (event) => {
+    if (!touchHasDragged) {
+      console.log('👆 Tap détecté - Reset au recto');
+      clearTimeout(resetTimeout);
+      resetToFront();
+    }
+    touchStartPosition = { x: 0, y: 0 };
+    touchHasDragged = false;
   });
 
   // === Variables pour l'auto-reset ===
   let isUserInteracting = false;
   let resetTimeout;
 
-  // Détecte quand l'utilisateur commence à interagir
   controls.addEventListener('start', () => {
     isUserInteracting = true;
     clearTimeout(resetTimeout);
   });
 
-  // Détecte quand l'utilisateur arrête d'interagir
   controls.addEventListener('end', () => {
     isUserInteracting = false;
-    // Lance le reset après 1 seconde d'inactivité
     resetTimeout = setTimeout(() => {
-      resetCardPosition();
-    }, 1000);
+      console.log('⏱️ Auto-reset après inactivité');
+      resetToFront();
+    }, 2000); // 2 secondes d'inactivité
   });
 
-  // Fonction pour réinitialiser la carte
-  function resetCardPosition() {
-    if (isAnimating) return; // Empêche les animations multiples
+  // ✅ FONCTION : Remet toujours côté RECTO de face
+  function resetToFront() {
+    if (isAnimating) {
+      console.log('⚠️ Animation déjà en cours, ignoré');
+      return;
+    }
     
+    console.log('🔄 Début animation reset au recto');
     isAnimating = true;
+    isFlipped = false;
     
-    const resetDuration = 800; // Durée de l'animation
+    const resetDuration = 600; // Plus rapide : 600ms
     const startRotation = {
       x: cardGroup.rotation.x,
       y: cardGroup.rotation.y,
       z: cardGroup.rotation.z,
     };
     
-    // Réinitialise bien de face selon l'état (recto ou verso)
+    // ✅ Cible toujours 0,0,0 = RECTO de face
     const targetRotation = {
       x: 0,
-      y: isFlipped ? Math.PI : 0, // Garde l'état actuel (recto ou verso)
+      y: 0,
       z: 0
     };
 
@@ -197,6 +215,7 @@ export function postcard(container, rectoPath, versoPath) {
 
     function animateReset() {
       if (isUserInteracting) {
+        console.log('⚠️ Animation interrompue par utilisateur');
         isAnimating = false;
         return;
       }
@@ -204,7 +223,7 @@ export function postcard(container, rectoPath, versoPath) {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / resetDuration, 1);
       
-      // Interpolation avec effet "ease-in-out"
+      // Easing ease-in-out
       const easeProgress = progress < 0.5
         ? 2 * progress * progress
         : -1 + (4 - 2 * progress) * progress;
@@ -216,6 +235,7 @@ export function postcard(container, rectoPath, versoPath) {
       if (progress < 1) {
         requestAnimationFrame(animateReset);
       } else {
+        console.log('✅ Animation terminée - Carte au recto');
         isAnimating = false;
       }
     }
@@ -235,7 +255,7 @@ export function postcard(container, rectoPath, versoPath) {
     const newIsMobile = window.innerWidth < 768;
     const newCardWidth = newIsMobile ? 5 : 10;
     const newCardHeight = newIsMobile ? 3.5 : 7;
-    const newCameraDistance = newIsMobile ? 9 : 15;
+    const newCameraDistance = newIsMobile ? 9 : 14;
 
     if (geometry.parameters.width !== newCardWidth) {
       geometry.dispose();
@@ -252,6 +272,6 @@ export function postcard(container, rectoPath, versoPath) {
     controls.minDistance = newCameraDistance;
 
     renderer.setSize(container.offsetWidth, container.offsetHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   });
 }
