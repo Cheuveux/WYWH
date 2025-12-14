@@ -9,7 +9,6 @@ export function initializeHomeSwiper() {
   
   const swiper = new Swiper('.swiper', {
     modules: [Navigation, Pagination, EffectCoverflow, Keyboard],
-    // grabCursor: true,
     centeredSlides: true,
     slidesPerView: '1',
     loop: true,
@@ -17,9 +16,6 @@ export function initializeHomeSwiper() {
     spaceBetween: 100,
 
     direction :  isMobile ? 'vertical' : 'horizontal',
-    // pagination: {
-    //   clickable: true,
-    // },
     keyboard: {
       enabled: true,
       onlyInViewport: true,
@@ -33,22 +29,27 @@ export function initializeHomeSwiper() {
     const card = slide.querySelector('.card');
     const cardInner = card.querySelector('.card-inner');
     const content = card.getAttribute('data-content');
-    if (!content || cardInner.hasChildNodes()) return; // Évite de recharger si déjà chargé
+    if (!content || cardInner.hasChildNodes()) return;
 
-    const [recto, verso] = content.split('|'); // Récupère les URLs recto et verso
+    const [recto, verso] = content.split('|');
     console.log(`Loading 3D content for slide ${slideIndex}:`, recto, verso);
-    postcard(cardInner, recto, verso); // Charge l'objet 3D dans le conteneur
+    postcard(cardInner, recto, verso);
   };
 
-  // Charge la carte active et la suivante au démarrage
   loadCardContent(swiper.activeIndex);
   loadCardContent(swiper.activeIndex + 1);
 
-  // Charge les cartes visibles et suivantes lors du changement de slide
+  // ✅ Charge les cartes visibles et ferme menu + météo lors du changement
   swiper.on('slideChange', () => {
     const activeIndex = swiper.activeIndex;
+    
     loadCardContent(activeIndex);
     loadCardContent(activeIndex + 1);
+    
+    // ✅ DISPATCH DES ÉVÉNEMENTS (au lieu d'appeler des fonctions)
+    console.log('🔄 Slide changée - Fermeture du menu et météo');
+    window.dispatchEvent(new CustomEvent('close-navigation'));
+    window.dispatchEvent(new CustomEvent('close-weather'));
   });
 
   return swiper;

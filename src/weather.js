@@ -49,6 +49,14 @@ export function initWeather() {
             isWeatherOpen = true;
         }
     });
+
+    window.addEventListener('close-weather', () => {
+        if (isWeatherOpen) {
+            console.log('Fermeture automatique du widget meteo PAR changement de slide !');
+            closeWeatherWidget();
+            isWeatherOpen = false;
+        }
+    })
 }
 
 function createWeatherWidget() {
