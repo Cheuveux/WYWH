@@ -133,7 +133,7 @@ a:hover,
 }
 
 .nav-item {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   color: black;
   transition: color 0.3s ease;
 }
@@ -533,73 +533,158 @@ a:hover,
 .weather-widget {
   display: none;
   position: fixed;
-  bottom: 15%;
-  left: 70%;
-  padding: 2rem;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: .5rem;
   z-index: 9999;
-  min-width: 320px;
+  width: 90%;
+  max-width: 420px;
   color: black;
-  text-align: center;
-}
-
-.weather-close:hover {
-  background: rgba(255, 255, 255, 0.3);
 }
 
 .weather-content {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+.weather-location {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ✅ CALENDRIER */
+.weather-calendar {
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-prev,
+.calendar-next {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.calendar-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+#calendar-month-year {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#calendar-day-name {
+  font-size: 0.85rem;
+  text-transform: lowercase;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  color: grey;
+}
+
+.calendar-day.empty {
+  visibility: hidden;
+}
+
+.calendar-day.today {
+  background: black;
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-time-temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.current-time {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.current-temp {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Météo */
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
 .weather-icon img {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-.weather-temp {
-  font-size: 3.5rem;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.weather-description {
-  font-size: 1.2rem;
-  text-transform: capitalize;
-  opacity: 0.9;
+  width: 80px;
+  height: 80px;
 }
 
 .weather-minmax {
   display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-size: 1rem;
-  opacity: 0.9;
+  gap: 2rem;
+  font-size: 0.9rem;
 }
 
 @media screen and (max-width: 650px) {
   .weather-widget {
-    width: 100px;
-    min-width: auto;
+    width: 90%;
     padding: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
   }
 
   .weather-content {
-    gap: 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
-  .weather-location {
-    font-size: 1rem;
-  }
-
-  .weather-temp {
-    font-size: 1.5rem;
-  }
-
+  
   .weather-icon img {
-    width: 80px;
-    height: 80px;
+  width: 60px;
+  height: 60px;
+}
+  .calendar-grid {
+    gap: 0.3rem;
+  }
+
+  .calendar-day {
+    font-size: 0.75rem;
   }
 }

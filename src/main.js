@@ -29,7 +29,7 @@ document.querySelector('#app').innerHTML = `
        <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Kyoto, JP</a>
       </h2>
     </div>
     <div class="swiper-slide">
@@ -39,7 +39,7 @@ document.querySelector('#app').innerHTML = `
       <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Paris, FR</a>
       </h2>
     </div>
     <div class="swiper-slide">
@@ -49,7 +49,7 @@ document.querySelector('#app').innerHTML = `
         <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Kyoto, JP</a>
       </h2>
     </div>
     <div class="swiper-slide">
@@ -59,7 +59,7 @@ document.querySelector('#app').innerHTML = `
             <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Kyoto, JP</a>
       </h2>
     </div>
     <div class="swiper-slide">
@@ -69,7 +69,7 @@ document.querySelector('#app').innerHTML = `
             <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Kyoto, JP</a>
       </h2>
     </div>
     <div class="swiper-slide">
@@ -79,7 +79,7 @@ document.querySelector('#app').innerHTML = `
        <h2 class="project-info">
         <a href="" class="artist-info">Antoine Bertoli</a>
         <p>-</p>
-        <a href="" class="location">Japan, Kyoto</a>
+        <a href="" class="location">Kyoto, JP</a>
       <h2/>
     </div>
   </div>
