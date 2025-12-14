@@ -89,7 +89,7 @@ body {
 /* ✅ BOUTON THEME TOGGLE */
 .theme-toggle {
   position: fixed;
-  top: 1.5rem;
+  bottom: 1.5rem;
   right: 2rem;
   z-index: 10000;
   background: transparent;
@@ -137,7 +137,7 @@ body {
 
 @media screen and (max-width: 650px) {
   .theme-toggle {
-    top: 1rem;
+    bottom: 1rem;
     right: 1rem;
     width: 40px;
     height: 40px;
@@ -389,6 +389,7 @@ a:hover,
   left: 0;
   width: 100%;
   height: 80px;
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: flex-start;
