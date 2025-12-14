@@ -9,7 +9,7 @@ import { initWeather } from './weather.js';
 
 document.querySelector('#app').innerHTML = `
 
-    <header class="site-header">
+  <header class="site-header">
     <h1 class="logo"><img src ="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/Logo%20PNG.svg"/></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
