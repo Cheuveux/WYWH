@@ -3,7 +3,7 @@ import './music.css';
 import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
-
+import { initThemeSwitcher } from './themeSwitcher.js'
 document.querySelector('#app').innerHTML = `
 
   <header class="site-header">
@@ -150,7 +150,7 @@ document.querySelector('#app').innerHTML = `
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
 `;
-
+initThemeSwitcher();
 openHeader();
 AnimRadio();
 

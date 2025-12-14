@@ -3,8 +3,8 @@
 @font-face {
   font-family: "Acumin-normal";
   src: url("./assets/font/acumin-pro-semibold-italic.otf") format("opentype");
-  font-weight: 600; /* Semibold = 600 */
-  font-style: italic; /* Le fichier est "Semibolditalic" */
+  font-weight: 600;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -16,39 +16,56 @@
   font-display: swap;
 }
 
-/* Style general */
+/* ✅ VARIABLES DE THÈME */
 :root {
   font-family: "Acumin-normal", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 600;
-
-  color-scheme: light dark;
-  color: rgba(252, 255, 252, 0.8);
-  background-color: rgba(255, 252, 255,1 );
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   --spe-font-color: rgb(142, 167, 167);
-
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE 10+ */
+  
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* WebKit (Chrome, Safari, Edge) */
-.music-playlist::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    background: transparent;
+/* ✅ MODE CLAIR (par défaut) */
+:root[data-theme="light"] {
+  --bg-color: rgb(255, 252, 255);
+  --text-color: rgba(0, 0, 0, 0.9);
+  --text-secondary: rgb(142, 167, 167);
+  --border-color: rgba(100, 97, 93, 0.438);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --input-bg: rgba(255, 255, 255, 0.2);
+  --calendar-day-color: grey;
+  --progress-bg: rgba(255, 255, 255, 0.2);
 }
 
+/* ✅ MODE SOMBRE */
+:root[data-theme="dark"] {
+  --bg-color: rgb(18, 18, 18);
+  --text-color: rgba(255, 255, 255, 0.9);
+  --text-secondary: rgb(142, 167, 167);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(0, 0, 0, 0.3);
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  --input-bg: rgba(0, 0, 0, 0.3);
+  --calendar-day-color: rgba(255, 255, 255, 0.6);
+  --progress-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* ✅ APPLICATION DES VARIABLES */
 body {
   margin: 0;
-
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #app {
@@ -68,6 +85,63 @@ body {
     #app {
       padding: .5rem;
     }
+}
+/* ✅ BOUTON THEME TOGGLE */
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 10000;
+  background: transparent;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  padding: 0;
+}
+
+/* ✅ Change la couleur du SVG selon le thème */
+.theme-toggle img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Mode clair : lune noire */
+:root[data-theme="light"] .theme-toggle img {
+  filter: brightness(0) saturate(100%); /* Noir */
+}
+
+/* Mode sombre : soleil blanc/jaune */
+:root[data-theme="dark"] .theme-toggle img {
+  filter: brightness(0) saturate(100%) invert(1) sepia(1) saturate(5) hue-rotate(15deg); /* Jaune doré */
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  background: var(--card-bg);
+}
+
+.theme-toggle:hover img {
+  transform: rotate(-15deg);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@media screen and (max-width: 650px) {
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* Header style */
@@ -101,6 +175,16 @@ header {
 .logo > img {
   width: 100%;
   height: auto;
+  transition: filter 0.3s ease; /* ✅ AJOUT */
+}
+
+/* ✅ Change la couleur du logo selon le thème */
+:root[data-theme="light"] .logo img {
+  filter: brightness(0) saturate(100%); /* Noir */
+}
+
+:root[data-theme="dark"] .logo img {
+  filter: brightness(0) saturate(100%) invert(1); /* Blanc */
 }
 
 /* CACHE LE BOUTON MENU */
@@ -123,18 +207,20 @@ header {
 
 a {
   font-weight: 500;
-  color: #555;
+  color: var(--text-color);
   text-decoration: none;
+  opacity: 0.7;
 }
 
 a:hover,
 .nav-item span:hover {
-  color: rgb(75, 107, 107);
+  opacity: 1;
+  color: var(--text-secondary);
 }
 
 .nav-item {
   font-size: 2.5rem;
-  color: black;
+  color: var(--text-color);
   transition: color 0.3s ease;
 }
 
@@ -145,7 +231,24 @@ a:hover,
 .nav-item span {
   font-family: "Acumin-italic", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-style: italic;
-  color: black;
+  color: var(--text-color);
+}
+
+
+.project-info p {
+  margin: 0;
+}
+
+.artist-info,
+.location {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.artist-info:hover,
+.location:hover {
+  color: var(--text-secondary);
 }
 
 @media screen and (max-width: 650px) {
@@ -230,7 +333,7 @@ a:hover,
   align-items: center;
   justify-content: center;
   font-size: 1.3rem;
-  color: var(--spe-font-color);
+  color: var(--text-seondary);
   font-family: "Acumin-italic", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-style: italic;
   position: absolute;
@@ -248,7 +351,7 @@ a:hover,
 
 .artist-info,
 .location {
-  color: rgb(0, 0, 0);
+  color: var(--text-color);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -290,22 +393,25 @@ a:hover,
   align-items: center;
   justify-content: flex-start;
   padding: 15px 20px;
-
   font-family: "Acumin-italic", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-style: italic;
-  color: black;
+  color: var(--text-color);
 }
+
 .radio-toggle {
   width: 70px;
   height: 70px;
   cursor: pointer;
-  transition : transform 0.3s ease, filter 0.3s;
+  transition: transform 0.3s ease, filter 0.3s;
+}
+
+/* ✅ FILTRE ADAPTATIF SELON LE THÈME */
+:root[data-theme="light"] .radio-toggle {
   filter: invert(0.5) brightness(0.8);
 }
 
-.radio-toggle:hover {
-  transform: scale(1.1);
-  
+:root[data-theme="dark"] .radio-toggle {
+  filter: invert(0.8) brightness(1.2);
 }
 
 #radio-toggle.active {
@@ -350,7 +456,7 @@ a:hover,
   font-size: 0.9rem;
   text-align: center;
   width: center;
-  color: black;
+  color: var(--text-color);
 }
 .progress-container {
   display: flex;
@@ -358,12 +464,12 @@ a:hover,
   justify-content: center;
   gap: 10px;
   width: 100%;
-  color: #333;
+  color: var(--text-color);
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   border-radius: 20px;
   -webkit-backdrop-filter: blur(12px);
-  border: 3px solid black;
+  border: 3px solid var(--text-color);
 }
 #progress {
   -webkit-appearance: none;
@@ -372,8 +478,8 @@ a:hover,
   height: 10px;
   border-radius: 6px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  background: var(--progress-bg);
+  box-shadow: inset 0 1px 3px var(--shadow-color);
   transition: background 0.3s;
   position: relative;
   overflow: hidden;
@@ -459,7 +565,7 @@ a:hover,
 /* timers */
 #time-current, #time-total {
   font-size: 0.7rem;
-  color: #696262;
+  color: var(--text-secondary);
   min-width: 35px;
   text-align: center;
 }
@@ -537,7 +643,8 @@ a:hover,
   z-index: 9999;
   width: 90%;
   max-width: 420px;
-  color: black;
+  color: var(--text-color);
+  background: var(--bg-color);
 }
 
 .weather-content {
@@ -607,7 +714,7 @@ a:hover,
   font-size: 0.85rem;
   border-radius: 4px;
   transition: background 0.2s;
-  color: grey;
+  color: var(--calendar-day-color);
 }
 
 .calendar-day.empty {
@@ -615,8 +722,8 @@ a:hover,
 }
 
 .calendar-day.today {
-  background: black;
-  color: white;
+  background: var(--text-color);
+  color: var(--bg-color);
   font-weight: 600;
 }
 
@@ -657,13 +764,13 @@ a:hover,
 .current-temp {
   font-size: 1.5rem;
   font-weight: 600;
-  color: black;
+  color: var(--text-color);
 }
 
 .weather-max {
   font-size: 1.5rem;
   font-weight: 600;
-  color: grey;
+  color: var(--text-secondary);
 }
 
 @media screen and (max-width: 650px) {
@@ -676,11 +783,18 @@ a:hover,
   }
 
   .weather-content {
-    display: flex;
+    font-size: 1.2rem;  
+   
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
   }
+   .weather-max { font-size: 0.8rem;}    
+   .current-temp {  font-size: 1.2rem;   }      
+  
+    .weather-icon img { height: 60px;    width: 60px;  }
+    .current-time {    font-size: 0.9rem; }    
+    .calendar-day { font-size: 0.75rem;   }   
  .weather-location {
   font-size: 0.8rem;
  } 

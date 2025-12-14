@@ -5,7 +5,7 @@ import { shuffle } from './shuffle.js';
 import { intializeRadio } from './radio.js';
 import { openHeader} from './header.js';
 import { initWeather } from './weather.js';
-
+import { initThemeSwitcher } from './themeSwitcher.js'
 
 document.querySelector('#app').innerHTML = `
 
@@ -101,6 +101,7 @@ document.querySelector('#app').innerHTML = `
 `;
 
 /*Ordre important !! */
+initThemeSwitcher();
 openHeader();
 shuffle();
 postcard();

@@ -81,14 +81,15 @@
     display: block;
     width: 70px;
     height: 70px;
-    background-color: grey;
-    
+    background-color: grey;    
 }
+
 .music-cover img{
     width: 70px;
     height: 70px;
     
 }
+
 .music-info {
     display: flex;
     flex-direction: column;
@@ -97,6 +98,7 @@
     margin-left: 1rem;
     width: 100%;
 }
+
 .music-title {
     display: flex;
     letter-spacing: 1px;
