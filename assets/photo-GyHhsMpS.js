@@ -1,4 +1,4 @@
-import"./style-DSL0rQxs.js";document.querySelector("#app").innerHTML=`
+import"./style-CDgE6Iga.js";document.querySelector("#app").innerHTML=`
 
 <header class="site-header">
     <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
