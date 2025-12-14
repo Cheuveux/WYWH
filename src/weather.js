@@ -70,6 +70,7 @@ function createWeatherWidget() {
                         <!-- Les jours seront générés ici -->
                     </div>
 
+                <div class="weather-location" id="weather-location">--</div>
                 </div>
 
                 <!-- Météo -->
@@ -79,10 +80,9 @@ function createWeatherWidget() {
                         <img src="" alt="weather icon" />
                     </div>
                     <div class="weather-minmax">
-                        <span id="weather-min">Min: --°C</span>
-                        <span id="weather-max">Max: --°C</span>
+                        <span id="current-temp">°</span>
+                        <span id="weather-max"></span>
                     </div>
-                <div class="weather-location" id="weather-location">--</div>
                 </div>
             </div>
         </div>
@@ -145,9 +145,8 @@ function afficherMeteo(data) {
 
     // Affichage
     document.getElementById('weather-location').textContent = `${nomVille}, ${pays}`;
-    document.getElementById('weather-min').textContent = `Min: ${tempMin}°C`;
-    document.getElementById('weather-max').textContent = `Max: ${tempMax}°C`;
-    // document.getElementById('current-temp').textContent = `${temperature}°`;
+    document.getElementById('weather-max').textContent = `${tempMax}`;
+    document.getElementById('current-temp').textContent = `${temperature}°`;
 
     const urlIcone = `https://openweathermap.org/img/wn/${iconeCode}@2x.png`;
     document.getElementById('weather-icon').querySelector('img').src = urlIcone;
