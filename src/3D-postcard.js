@@ -43,7 +43,6 @@ export function postcard(container, rectoPath, versoPath) {
   // === Géométrie et matériaux NATURELS ===
   const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
   
-  // ✅ MeshBasicMaterial = rendu fidèle sans éclairage artificiel
   const materialRecto = new THREE.MeshBasicMaterial({ 
     map: rectoTexture,
     side: THREE.FrontSide,
@@ -92,98 +91,18 @@ export function postcard(container, rectoPath, versoPath) {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.enableZoom = false;
+  controls.enableZoom = isMobile;
   controls.enablePan = false;
-  controls.maxDistance = cameraDistance;
-  controls.minDistance = cameraDistance;
+  controls.maxDistance = cameraDistance * 2; 
+  controls.minDistance = cameraDistance * (isMobile ? 0.5 : 1);
 
   // === Variables pour l'état de la carte ===
-  let isFlipped = false;
   let isAnimating = false;
 
-  // === Variables pour détecter le drag vs click ===
-  let mouseDownPosition = { x: 0, y: 0 };
-  let hasDragged = false;
-
-  // ✅ DÉTECTION DU DRAG
-  renderer.domElement.addEventListener('mousedown', (event) => {
-    mouseDownPosition = { x: event.clientX, y: event.clientY };
-    hasDragged = false;
-  });
-
-  renderer.domElement.addEventListener('mousemove', (event) => {
-    if (mouseDownPosition.x !== 0 || mouseDownPosition.y !== 0) {
-      const deltaX = Math.abs(event.clientX - mouseDownPosition.x);
-      const deltaY = Math.abs(event.clientY - mouseDownPosition.y);
-      
-      // Si mouvement > 5px, c'est un drag
-      if (deltaX > 5 || deltaY > 5) {
-        hasDragged = true;
-      }
-    }
-  });
-
-  // ✅ CLIC (sans drag) = RESET
-  renderer.domElement.addEventListener('mouseup', (event) => {
-    if (!hasDragged) {
-      console.log('🖱️ Clic détecté - Reset au recto');
-      clearTimeout(resetTimeout);
-      resetToFront();
-    }
-    mouseDownPosition = { x: 0, y: 0 };
-    hasDragged = false;
-  });
-
-  // ✅ SUPPORT TACTILE (mobile)
-  let touchStartPosition = { x: 0, y: 0 };
-  let touchHasDragged = false;
-
-  renderer.domElement.addEventListener('touchstart', (event) => {
-    if (event.touches.length === 1) {
-      touchStartPosition = { 
-        x: event.touches[0].clientX, 
-        y: event.touches[0].clientY 
-      };
-      touchHasDragged = false;
-    }
-  });
-
-  renderer.domElement.addEventListener('touchmove', (event) => {
-    if (event.touches.length === 1 && touchStartPosition.x !== 0) {
-      const deltaX = Math.abs(event.touches[0].clientX - touchStartPosition.x);
-      const deltaY = Math.abs(event.touches[0].clientY - touchStartPosition.y);
-      
-      if (deltaX > 5 || deltaY > 5) {
-        touchHasDragged = true;
-      }
-    }
-  });
-
-  renderer.domElement.addEventListener('touchend', (event) => {
-    if (!touchHasDragged) {
-      console.log('👆 Tap détecté - Reset au recto');
-      clearTimeout(resetTimeout);
-      resetToFront();
-    }
-    touchStartPosition = { x: 0, y: 0 };
-    touchHasDragged = false;
-  });
-
-  // === Variables pour l'auto-reset ===
-  let isUserInteracting = false;
-  let resetTimeout;
-
-  controls.addEventListener('start', () => {
-    isUserInteracting = true;
-    clearTimeout(resetTimeout);
-  });
-
+  // ✅ RESET AUTOMATIQUE DÈS QU'ON RELÂCHE (OrbitControls 'end')
   controls.addEventListener('end', () => {
-    isUserInteracting = false;
-    resetTimeout = setTimeout(() => {
-      console.log('⏱️ Auto-reset après inactivité');
-      resetToFront();
-    }, 2000); // 2 secondes d'inactivité
+    console.log('🔄 Relâchement détecté - Reset au recto');
+    resetToFront();
   });
 
   // ✅ FONCTION : Remet toujours côté RECTO de face
@@ -195,9 +114,8 @@ export function postcard(container, rectoPath, versoPath) {
     
     console.log('🔄 Début animation reset au recto');
     isAnimating = true;
-    isFlipped = false;
     
-    const resetDuration = 600; // Plus rapide : 600ms
+    const resetDuration = 600;
     const startRotation = {
       x: cardGroup.rotation.x,
       y: cardGroup.rotation.y,
@@ -214,12 +132,6 @@ export function postcard(container, rectoPath, versoPath) {
     const startTime = Date.now();
 
     function animateReset() {
-      if (isUserInteracting) {
-        console.log('⚠️ Animation interrompue par utilisateur');
-        isAnimating = false;
-        return;
-      }
-      
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / resetDuration, 1);
       

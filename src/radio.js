@@ -29,6 +29,46 @@ export function intializeRadio() {
     let isPlaying = false;
     let isVisible = false;
 
+    // --- Restaure l'état du player depuis localStorage ---
+    function restorePlayerState() {
+        try {
+            const state = JSON.parse(localStorage.getItem('wywh-radio-state'));
+            if (!state) return;
+            if (Array.isArray(state.tracks) && state.tracks.length > 0) {
+                tracks = state.tracks;
+            }
+            if (typeof state.current === 'number' && state.current >= 0 && state.current < tracks.length) {
+                current = state.current;
+            }
+            if (player) {
+                player.src = tracks[current];
+                if (typeof state.currentTime === 'number') {
+                    player.currentTime = state.currentTime;
+                }
+                if (state.isPlaying) {
+                    // On attend que le player soit prêt avant de jouer
+                    player.addEventListener('canplay', function autoPlayOnRestore() {
+                        player.play();
+                        player.removeEventListener('canplay', autoPlayOnRestore);
+                    });
+                }
+            }
+        } catch (e) {}
+    }
+
+    // --- Sauvegarde l'état du player dans localStorage ---
+    function savePlayerState() {
+        try {
+            const state = {
+                current,
+                isPlaying: !!player && !player.paused,
+                currentTime: player ? player.currentTime : 0,
+                tracks: tracks.slice()
+            };
+            localStorage.setItem('wywh-radio-state', JSON.stringify(state));
+        } catch (e) {}
+    }
+
     function emit(name, detail = {}) {
         window.dispatchEvent(new CustomEvent(name, { detail }));
     }
@@ -78,7 +118,30 @@ export function intializeRadio() {
         }
     }
 
-    if (tracks.length && player) player.src = tracks[current];
+
+    // Restaure l'état si possible
+    if (player) {
+        restorePlayerState();
+        // Si la lecture reprend automatiquement, anime le toggle et affiche le player
+        const state = JSON.parse(localStorage.getItem('wywh-radio-state'));
+        if (state && state.isPlaying) {
+            // Affiche le player et anime le toggle
+            setTimeout(() => {
+                if (typeof showPlayer === 'function') showPlayer();
+                else {
+                    // fallback si showPlayer n'est pas accessible
+                    if (customPlayer && toggleBtn) {
+                        isVisible = true;
+                        toggleBtn.classList.add('active');
+                        customPlayer.style.display = 'flex';
+                        gsap.fromTo(customPlayer, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" });
+                    }
+                }
+                updateTrackTitle();
+            }, 100); // petit délai pour laisser le DOM prêt
+        }
+    }
+    if (tracks.length && player && !player.src) player.src = tracks[current];
     updateTrackTitle();
 
     // sync audio events -> état + events
@@ -86,16 +149,22 @@ export function intializeRadio() {
         player.addEventListener('play', () => {
             isPlaying = true;
             emit('radio:play', { src: player.src });
+            savePlayerState();
         });
         player.addEventListener('pause', () => {
             isPlaying = false;
             emit('radio:pause', { src: player.src });
+            savePlayerState();
         });
         player.addEventListener('ended', () => {
             current = (current + 1) % tracks.length;
             player.src = tracks[current];
             updateTrackTitle();
             player.play();
+            savePlayerState();
+        });
+        player.addEventListener('timeupdate', () => {
+            savePlayerState();
         });
     }
 
@@ -208,6 +277,9 @@ export function intializeRadio() {
         updateTrackTitle();
         console.log('🔀 Pistes mélangées:', tracks);
     }
+
+    // Sauvegarde l'état du player avant de quitter la page
+    window.addEventListener('beforeunload', savePlayerState);
 
     return { playUrl, playIndex, setTracks, getState, toggleUrl, reshuffleTracks };
 }

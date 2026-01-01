@@ -32,7 +32,7 @@
   -ms-overflow-style: none;
 }
 
-/* ✅ MODE CLAIR (par défaut) */
+/*  MODE CLAIR (par defaut) */
 :root[data-theme="light"] {
   --bg-color: rgb(255, 252, 255);
   --text-color: rgba(0, 0, 0, 0.9);
@@ -45,7 +45,7 @@
   --progress-bg: rgba(255, 255, 255, 0.2);
 }
 
-/* ✅ MODE SOMBRE */
+/*  MODE SOMBRE */
 :root[data-theme="dark"] {
   --bg-color: rgb(18, 18, 18);
   --text-color: rgba(255, 255, 255, 0.9);
@@ -86,7 +86,6 @@ body {
       padding: .5rem;
     }
 }
-/* ✅ BOUTON THEME TOGGLE */
 .theme-toggle {
   position: fixed;
   bottom: 1.5rem;
@@ -103,7 +102,6 @@ body {
   padding: 0;
 }
 
-/* ✅ Change la couleur du SVG selon le thème */
 .theme-toggle img {
   width: 60%;
   height: 60%;
@@ -112,12 +110,10 @@ body {
   pointer-events: none;
 }
 
-/* Mode clair : lune noire */
 :root[data-theme="light"] .theme-toggle img {
   filter: brightness(0) saturate(100%); /* Noir */
 }
 
-/* Mode sombre : soleil blanc/jaune */
 :root[data-theme="dark"] .theme-toggle img {
   filter: brightness(0) saturate(100%) invert(1) sepia(1) saturate(5) hue-rotate(15deg); /* Jaune doré */
 }
@@ -175,10 +171,9 @@ header {
 .logo > img {
   width: 100%;
   height: auto;
-  transition: filter 0.3s ease; /* ✅ AJOUT */
+  transition: filter 0.3s ease; 
 }
 
-/* ✅ Change la couleur du logo selon le thème */
 :root[data-theme="light"] .logo img {
   filter: brightness(0) saturate(100%); /* Noir */
 }
@@ -639,10 +634,9 @@ a:hover,
   display: none;
   position: fixed;
   bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 8%;
   padding: .5rem;
-  width: 90%;
+  width: 100%;
   z-index: 1;
   max-width: 420px;
   color: var(--text-color);
