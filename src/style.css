@@ -82,9 +82,13 @@ body {
 
 @media screen and (max-width: 650px)
 {
+    body {
+      max-width: 100%;
+      width: 100%;
+    }  
     #app {
-      padding: .5rem;
-    }
+        padding: .5rem;
+      }
 }
 .theme-toggle {
   position: fixed;
@@ -189,6 +193,8 @@ header {
 
 .main-nav {
   display: none;
+  width: 100%;
+  max-width: 100%;
   opacity: 0;
   transform: translateY(-20px);
   flex-direction: column;
@@ -249,11 +255,14 @@ a:hover,
 @media screen and (max-width: 650px) {
   .site-header {
     padding: 0.8rem 1rem;
-    align-items: flex-start; /* Aligne à gauche sur mobile */
+    width: 100%;
+    align-items: flex-start;
+    overflow-x: hidden; 
   }
 
   .logo {
-    width: 330px;
+    width: 100%;
+    max-width: 330px;
     margin-top: 0.5rem;
   }
 
@@ -262,7 +271,7 @@ a:hover,
   }
 
   .main-nav {
-    width: calc(100% - 2rem);
+    width: 100%;
     align-self: flex-start; /* Aligne le menu à gauche sur mobile */
   }
 
@@ -772,9 +781,10 @@ a:hover,
 @media screen and (max-width: 650px) {
   .weather-widget {
     width: 90%;
+    max-width: 320px;
     padding: .5rem;
     position: absolute;
-    left: 50%;
+    left: 0%;
     bottom: 7%;
   }
 

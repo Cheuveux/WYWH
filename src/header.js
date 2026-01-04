@@ -10,7 +10,6 @@ export function openHeader() {
        if (!isOpen) {
         // Ouvre le menu
         nav.style.display = "flex";
-        
         gsap.to(nav, {
             opacity: 1,
             duration: 0.3,
