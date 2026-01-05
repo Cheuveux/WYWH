@@ -32,9 +32,9 @@
     width: 100%;
     max-width: 750px;
     padding: 0.5rem;
-    border: 1px solid rgba(100, 97, 93, 0.438);
+    border: 0.05rem solid rgba(100, 97, 93, 0.543);
+    /* box-shadow:0.05rem solid rgba(157, 150, 143, 0.261) ; */
     border-bottom: none;
-    border-radius: 5px;
 }
 
 /* .music-item,

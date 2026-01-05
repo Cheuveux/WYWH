@@ -2,8 +2,8 @@ export function initThemeSwitcher() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute("data-theme", savedTheme);
 
-    const sunIcon = 'https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/light-light-mode-sun-svgrepo-com.svg';
-    const moonIcon = 'https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/night-night-mode-moon-svgrepo-com.svg';
+    const sunIcon = 'https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/sun-svgrepo-com.svg';
+    const moonIcon = 'https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/moon-svgrepo-com.svg';
 
     const themeToggle = document.createElement('button');
     themeToggle.className = 'theme-toggle';

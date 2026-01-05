@@ -12,7 +12,7 @@ document.querySelector('#app').innerHTML = `
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html">wishyouwerehere<span>.photo</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.providers</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.artists</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.shop</span></a>
     </nav>
   </header>

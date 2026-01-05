@@ -30,7 +30,11 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
         }
         
         container.innerHTML = tracks.map(track => `
-            <div class="music-item" data-audio="${track.audio_url}">
+            <div class="music-item" 
+                 data-audio="${track.audio_url}"
+                 data-title="${track.title}"
+                 data-artist="${track.artist}"
+                 data-cover="${track.cover_url}">
                 <div class="music-cover">
                     <img src="${track.cover_url}" alt="${track.title}">
                 </div>
@@ -50,8 +54,13 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
             container.querySelectorAll('.music-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const audioUrl = item.getAttribute('data-audio');
+                    const title = item.getAttribute('data-title');
+                    const artist = item.getAttribute('data-artist');
+                    const cover = item.getAttribute('data-cover');
+                    
                     if (audioUrl) {
                         onTrackClick(audioUrl, item);
+                        updateMediaSession(title, artist, cover);
                     }
                 });
             });
@@ -62,5 +71,20 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
     } catch (error) {
         console.error("Erreur lors du chargement des tracks :", error);
         container.innerHTML = '<p style="color: var(--text-color); text-align: center;"> Erreur de chargement</p>';
+    }
+}
+
+/**
+ * Met à jour les métadonnées du Media Session (widget natif)
+ */
+function updateMediaSession(title, artist, coverUrl) {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: title,
+            artist: artist,
+            artwork: [
+                { src: coverUrl, sizes: '512x512', type: 'image/jpeg' }
+            ]
+        });
     }
 }
