@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "Acumin-italic";
-  src: url("../public/font/Acumin-Pro/Acumin Pro/AcuminPro-Italic.woff2") format("opentype");
+  src: url("../assets/font/Acumin-Pro/Acumin Pro/AcuminPro-Italic.woff2") format("opentype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -161,11 +161,22 @@ header {
   z-index: 1000;
 }
 
+
+
 .logo {
   width: 520px;
   cursor: pointer;
   transition: opacity 0.3s ease;
   z-index: 1001;
+  font-size: 3rem;
+  font-family: "Acumin normal", sans-serif;
+  font-style:  italic;
+}
+
+.logo span {
+  font-family: "Acumin italic", sans-serif;
+  font-style:  italic;
+  font-weight: 400;
 }
 
 .logo:hover {

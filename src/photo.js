@@ -1,19 +1,21 @@
 import './style.css';
+import { openHeader } from './header';
+import { intializeRadio } from './radio.js';
+import { AnimRadio } from './anim_radio.js';
+import { initThemeSwitcher } from './themeSwitcher.js';
+import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
+
 document.querySelector('#app').innerHTML = `
 
-<header class="site-header">
-    <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
-      <img  src="./icons/menu-icon.svg" alt="Radio toggle" />
-    </button>
-    <h1 class="logo">wishyouwerehere<span>.world</span></h1>
+ <header class="site-header">
+    <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
     <nav id="main-nav" class="main-nav">
-          <a class="nav-item" href="./music.html">wishyouwerehere<span>.music</span></a>
-          <a class="nav-item" href="./photo.html">wishyouwerehere<span>.photo</span></a>
-          <a class="nav-item" href="./providers.html">wishyouwerehere<span>.providers</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}index.html"><span>.world</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.photo</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}artists.html"><span>.artists</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}shop.html"><span>.shop</span></a>
     </nav>
-        
-
-</header>
+  </header>
 
 
 <div class="audio-footer">
@@ -35,3 +37,20 @@ document.querySelector('#app').innerHTML = `
   </div> 
 
 `;
+
+initThemeSwitcher();
+openHeader();
+AnimRadio();
+
+// Initialise le player
+const radio = intializeRadio();
+
+// ✅ Charge les tracks depuis Supabase
+loadTracksFromSupabase('music-playlist', (audioUrl, item) => {
+  // Joue la track
+  radio.playUrl(audioUrl);
+  
+  // Marque visuellement l'item actif
+  document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+});

@@ -8,12 +8,12 @@ import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
 
 document.querySelector('#app').innerHTML = `
   <header class="site-header">
-    <h1 class="logo"><img src ="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/Logo%20PNG.svg"/></h1>
+    <h1 class="logo">wishyouwerehere<span>.music</span></h1>
     <nav id="main-nav" class="main-nav">
-      <a class="nav-item" href="${import.meta.env.BASE_URL}music.html">wishyouwerehere<span>.music</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html">wishyouwerehere<span>.photo</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.artists</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html">wishyouwerehere<span>.shop</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}index.html"><span>.world</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html"><span>.photo</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}artists.html"><span>.artists</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}shop.html"><span>.shop</span></a>
     </nav>
   </header>
 
