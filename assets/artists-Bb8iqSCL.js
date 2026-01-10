@@ -1,4 +1,4 @@
-import{o as a}from"./header-CA8jtWGf.js";document.querySelector("#app").innerHTML=`
+import{o as a,i as e,a as c}from"./themeSwitcher-Cw0osxwe.js";import{A as d,l}from"./calling_tracks_from_supabase-JQTPrc9t.js";document.querySelector("#app").innerHTML=`
 
  <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.artists</span></h1>
@@ -15,12 +15,18 @@ import{o as a}from"./header-CA8jtWGf.js";document.querySelector("#app").innerHTM
         <div class="custom-player"  id="custom-player">
           
           <div class="progress-container">
-            <div id="music-artist" class="music-artist"></div>
-            <div id="track-title" class="track-title"></div>
+            <div class="scrolling-text">
+              <div id="music-artist" class="music-artist"></div>
+              <div id="track-title" class="track-title"></div>
+              <div id="music-artist-clone" class="music-artist"></div>
+              <div id="track-title-clone" class="track-title"></div>
+              <div id="music-artist-clone2" class="music-artist"></div>
+              <div id="track-title-clone2" class="track-title"></div>
+            </div>
           </div>
 
           
         </div>
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
-`;a();
+`;a();e();a();d();const r=c();l("music-playlist",(i,s)=>{r.playUrl(i),document.querySelectorAll(".music-item.active").forEach(t=>t.classList.remove("active")),s.classList.add("active")});
