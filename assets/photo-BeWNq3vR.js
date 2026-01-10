@@ -1,18 +1,14 @@
-import"./style-RAMRk9f4.js";document.querySelector("#app").innerHTML=`
+import{o as e}from"./header-CA8jtWGf.js";import{i as t,a as o}from"./themeSwitcher-Ctv0k9QO.js";import{A as r,l}from"./calling_tracks_from_supabase-DCuvt6H0.js";document.querySelector("#app").innerHTML=`
 
-<header class="site-header">
-    <button id="menu-button" class="menu-button" aria-label="Ouvrir le menu">
-      <img  src="./icons/menu-icon.svg" alt="Radio toggle" />
-    </button>
-    <h1 class="logo">wishyouwerehere<span>.world</span></h1>
+ <header class="site-header">
+    <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
     <nav id="main-nav" class="main-nav">
-          <a class="nav-item" href="./music.html">wishyouwerehere<span>.music</span></a>
-          <a class="nav-item" href="./photo.html">wishyouwerehere<span>.photo</span></a>
-          <a class="nav-item" href="./providers.html">wishyouwerehere<span>.providers</span></a>
+      <a class="nav-item" href="/WYWH/index.html"><span>.world</span></a>
+      <a class="nav-item" href="/WYWH/music.html"><span>.photo</span></a>
+      <a class="nav-item" href="/WYWH/artists.html"><span>.artists</span></a>
+      <a class="nav-item" href="/WYWH/shop.html"><span>.shop</span></a>
     </nav>
-        
-
-</header>
+  </header>
 
 
 <div class="audio-footer">
@@ -33,4 +29,4 @@ import"./style-RAMRk9f4.js";document.querySelector("#app").innerHTML=`
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
 
-`;
+`;t();e();r();const d=o();l("music-playlist",(a,s)=>{d.playUrl(a),document.querySelectorAll(".music-item.active").forEach(i=>i.classList.remove("active")),s.classList.add("active")});
