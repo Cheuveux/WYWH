@@ -146,7 +146,7 @@ body {
 
 /* Header style */
 header {
-  z-index: 99;
+  z-index: 1500;
 }
 
 .site-header {
@@ -158,7 +158,7 @@ header {
   flex-direction: column;
   align-items: center; /* Centre le logo sur desktop */
   padding: 1rem 2rem;
-  z-index: 1000;
+  z-index: 1500;
 }
 
 
@@ -167,7 +167,7 @@ header {
   width: 520px;
   cursor: pointer;
   transition: opacity 0.3s ease;
-  z-index: 1001;
+  z-index: 1501;
   font-size: 3rem;
   font-family: "Acumin normal", sans-serif;
   font-style:  italic;
@@ -278,7 +278,8 @@ a:hover,
   .logo {
     width: 100%;
     max-width: 330px;
-    margin-top: 0.5rem;
+    margin-top: 0.1rem;
+    font-size: 2rem;
   }
 
   .logo > img {
@@ -296,15 +297,16 @@ a:hover,
   position: relative;
   left: auto;
   top: 0%;
-  right: 12%;
+  right: 0%;
   margin-top: 0;
   transform: none;
-  align-items: flex-end; /* Centre le menu aussi */
+  align-items: flex-end;
   }
 
   .nav-item {
     font-size: 1.5rem;
     line-height: 1.2;
+    text-align: right;
   }
 }
 
@@ -413,7 +415,57 @@ a:hover,
     font-size: 1.1rem;
   }
 }
+/* Actu Lines */
+.actu-lines {
+  display: none;
+  position: fixed;
+  top: 70%;
+  left: 2rem;
+  flex-direction: column;
+  gap: 0.8rem;
+}
 
+.line {
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+}
+.line-1, 
+.line-2, 
+.line-3 {
+  padding-bottom: 2px;
+  border-bottom: solid 1px grey;
+  transition: background-color 0.3s ease;
+}
+.line-1 {
+  align-items: center;
+}
+.line-2, .line-3 {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.line-4{
+  display: flex;
+  text-align: start;
+}
+.short_line4 {
+  width: auto;
+  border-bottom: solid 1px grey; 
+}
+.long_line4 {
+  flex: 1;
+  width: auto;
+  margin-left: 70px;
+  border-bottom: solid 1px grey; 
+}
+
+@media screen and (max-width: 750px)
+{
+  .actu-lines {
+    display: none;
+  }
+}
 /* Radio footer */
 .audio-footer {
   position: fixed;
@@ -675,7 +727,7 @@ a:hover,
   padding: .5rem;
   width: 100%;
   z-index: 1;
-  max-width: 420px;
+  max-width: 320px;
   color: var(--text-color);
   background: var(--bg-color);
 }
@@ -683,7 +735,7 @@ a:hover,
 .weather-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .weather-location {
@@ -696,7 +748,7 @@ a:hover,
 /* ✅ CALENDRIER */
 .weather-calendar {
   border-radius: 10px;
-  padding: 1rem;
+  padding: 0rem;
 }
 
 .calendar-nav {
@@ -735,7 +787,7 @@ a:hover,
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.25rem;
+  gap: 0rem;
   margin-bottom: 1rem;
 }
 

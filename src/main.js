@@ -10,12 +10,12 @@ import { initThemeSwitcher } from './themeSwitcher.js'
 document.querySelector('#app').innerHTML = `
 
   <header class="site-header">
-    <h1 class="logo"><img src ="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/menu-icons/Logo%20PNG.svg"/></h1>
+    <h1 class="logo">wishyouwerehere<span>.world</span></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.music</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html"><span>.photos</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html"><span>.artists</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}providers.html"><span>.shop</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html"><span>.photo</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}artists.html"><span>.artists</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}shop.html"><span>.shop</span></a>
     </nav>
   </header>
 
@@ -85,6 +85,16 @@ document.querySelector('#app').innerHTML = `
   </div>
 </div>
 
+  
+  <div class="actu-lines">
+    <div class="line line-1">ACTUALITY FROM THE CLOUDS</div>
+    <div class="line line-2">Here is a special show everyone is waiting for</div>
+    <div class="line line-3">For all televisions and broadcasters</div>
+    <div class="line line-4">
+      <div class ="short_line4">Ayo</div>
+      <div class ="long_line4">Mandem my friend</div>
+    </div>
+    </div>
   <div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">

@@ -11,7 +11,7 @@ document.querySelector('#app').innerHTML = `
     <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}index.html"><span>.world</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.photo</span></a>
+      <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.music</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}artists.html"><span>.artists</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}shop.html"><span>.shop</span></a>
     </nav>

@@ -1,7 +1,10 @@
 import './style.css';
 import'./providers.css'
 import { openHeader } from './header';
-
+import { intializeRadio } from './radio.js';
+import { AnimRadio } from './anim_radio.js';
+import { initThemeSwitcher } from './themeSwitcher.js';
+import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
 
 document.querySelector('#app').innerHTML = `
 
@@ -32,3 +35,19 @@ document.querySelector('#app').innerHTML = `
 
 openHeader();
 
+initThemeSwitcher();
+openHeader();
+AnimRadio();
+
+// Initialise le player
+const radio = intializeRadio();
+
+// ✅ Charge les tracks depuis Supabase
+loadTracksFromSupabase('music-playlist', (audioUrl, item) => {
+  // Joue la track
+  radio.playUrl(audioUrl);
+  
+  // Marque visuellement l'item actif
+  document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+});

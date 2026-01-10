@@ -4,17 +4,41 @@ export function openHeader() {
     const logo = document.querySelector('.logo');
     const nav = document.getElementById('main-nav');
     const navItems = nav.querySelectorAll('.nav-item');
+    const actuLines = document.querySelector('.actu-lines');
+    const lines = actuLines ? actuLines.querySelectorAll('.line') : [];
     let isOpen = false;
 
     logo.addEventListener('click', () => {
        if (!isOpen) {
         // Ouvre le menu
         nav.style.display = "flex";
+        if (actuLines && window.innerWidth > 750) 
+            actuLines.style.display = "flex";
+        
         gsap.to(nav, {
             opacity: 1,
             duration: 0.3,
             ease: "power2.out"
         });
+
+        // Anime les lignes
+        if (actuLines) {
+            gsap.to(actuLines, {
+                opacity: 1,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+
+            gsap.fromTo(lines,
+              { scaleX: 0, transformOrigin: "left center" },
+              {
+                scaleX: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out"
+              }
+            );
+        }
 
         gsap.fromTo(navItems, 
           {
@@ -36,7 +60,6 @@ export function openHeader() {
        }
     });
 
-    // ✅ ÉCOUTE L'ÉVÉNEMENT DE FERMETURE DEPUIS home-swiper.js
     window.addEventListener('close-navigation', () => {
         if (isOpen) {
             console.log('🔄 Fermeture automatique du menu (changement de slide)');
@@ -44,7 +67,6 @@ export function openHeader() {
         }
     });
 
-    // ✅ FONCTION POUR FERMER LE MENU
     function closeNav() {
         if (!isOpen) return;
 
@@ -56,13 +78,26 @@ export function openHeader() {
             ease: "power2.in"
         });
 
-        gsap.to(nav, {
+        // Anime la fermeture des lignes
+        if (lines.length > 0) {
+            gsap.to(lines, {
+                scaleX: 0,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.in"
+            });
+        }
+
+        const elementsToHide = actuLines ? [nav, actuLines] : [nav];
+        
+        gsap.to(elementsToHide, {
             opacity: 0,
             duration: 0.3,
             delay: (navItems.length * 0.1) + 0.1,
             ease: "power2.in",
             onComplete: () => {
                 nav.style.display = "none";
+                if (actuLines) actuLines.style.display = "none";
             }
         });
 
