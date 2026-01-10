@@ -95,13 +95,19 @@ document.querySelector('#app').innerHTML = `
       <div class ="long_line4">Mandem my friend</div>
     </div>
     </div>
-  <div class="audio-footer">
+ <div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
           
           <div class="progress-container">
-            <div id="music-artist" class="music-artist"></div>
-            <div id="track-title" class="track-title"></div>
+            <div class="scrolling-text">
+              <div id="music-artist" class="music-artist"></div>
+              <div id="track-title" class="track-title"></div>
+              <div id="music-artist-clone" class="music-artist"></div>
+              <div id="track-title-clone" class="track-title"></div>
+              <div id="music-artist-clone2" class="music-artist"></div>
+              <div id="track-title-clone2" class="track-title"></div>
+            </div>
           </div>
 
           

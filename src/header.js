@@ -15,6 +15,18 @@ export function openHeader() {
         if (actuLines && window.innerWidth > 750) 
             actuLines.style.display = "flex";
         
+        // ✅ Ouvre aussi la météo de la slide active
+        const activeSlide = document.querySelector('.swiper-slide-active');
+        if (activeSlide) {
+            const locationElement = activeSlide.querySelector('.location');
+            if (locationElement) {
+                const ville = locationElement.textContent.trim();
+                console.log('📍 Ouverture météo pour:', ville);
+                // Déclenche un événement custom pour weather.js
+                window.dispatchEvent(new CustomEvent('open-weather', { detail: { ville } }));
+            }
+        }
+        
         gsap.to(nav, {
             opacity: 1,
             duration: 0.3,
@@ -69,6 +81,9 @@ export function openHeader() {
 
     function closeNav() {
         if (!isOpen) return;
+
+        // ✅ Ferme aussi le widget météo
+        window.dispatchEvent(new CustomEvent('close-weather'));
 
         gsap.to(navItems, {
             x: -50,

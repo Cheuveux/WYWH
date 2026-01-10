@@ -10,32 +10,12 @@ export function initWeather() {
 
     createWeatherWidget();
 
-    const logo = document.querySelector('.logo');
-
-    logo.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        if (!isWeatherOpen) {
-            const activeSlide = document.querySelector('.swiper-slide-active');
-            if (activeSlide) {
-                const locationElement = activeSlide.querySelector('.location');
-                if (locationElement) {
-                    const ville = locationElement.textContent.trim();
-                    console.log('📍 Ouverture météo de la carte active:', ville);
-                    getMeteo(ville);
-                    isWeatherOpen = true;
-                } else {
-                    console.warn('⚠️ Aucune localisation trouvée sur la carte active');
-                }
-            } else {
-                console.warn('⚠️ Aucune carte active trouvée');
-            }
-        } else {
-            console.log('🚪 Fermeture du widget météo');
-            closeWeatherWidget();
-            isWeatherOpen = false;
-        }
+    // ✅ Écoute l'événement custom depuis header.js
+    window.addEventListener('open-weather', (e) => {
+        const ville = e.detail.ville;
+        console.log('📍 Réception demande météo pour:', ville);
+        getMeteo(ville);
+        isWeatherOpen = true;
     });
 
     document.addEventListener('click', (e) => {

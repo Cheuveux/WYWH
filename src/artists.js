@@ -23,8 +23,14 @@ document.querySelector('#app').innerHTML = `
         <div class="custom-player"  id="custom-player">
           
           <div class="progress-container">
-            <div id="music-artist" class="music-artist"></div>
-            <div id="track-title" class="track-title"></div>
+            <div class="scrolling-text">
+              <div id="music-artist" class="music-artist"></div>
+              <div id="track-title" class="track-title"></div>
+              <div id="music-artist-clone" class="music-artist"></div>
+              <div id="track-title-clone" class="track-title"></div>
+              <div id="music-artist-clone2" class="music-artist"></div>
+              <div id="track-title-clone2" class="track-title"></div>
+            </div>
           </div>
 
           

@@ -13,14 +13,6 @@ export function intializeRadio() {
     // ✅ RÉCUPÈRE LES PISTES DEPUIS .music-item (si elles existent)
     let tracks = getTracksFromPlaylist();
     
-    // ✅ FALLBACK : Si pas de .music-item, utilise les pistes par défaut
-    if (tracks.length === 0) {
-        tracks = [
-            'audio/Give_me_your_hand.mp3',
-            'audio/Swimming_pool.mp3',
-            'audio/Pressure.mp3'
-        ];
-    }
 
     // ✅ SHUFFLE les pistes au chargement
     tracks = shuffleArray(tracks);
@@ -94,8 +86,21 @@ export function intializeRadio() {
         if (active) {
             const title = active.querySelector('.music-title h1')?.textContent?.trim() || '';
             const artist = active.querySelector('.music-artist')?.textContent?.trim() || '';
+            
+            // ✅ Met à jour les 6 éléments (originaux + 2 clones)
             if (trackTitle) trackTitle.textContent = title;
-            if (musicArtist) musicArtist.textContent = artist;
+            if (musicArtist) musicArtist.textContent = artist + " - ";
+            
+            const trackTitleClone = document.getElementById('track-title-clone');
+            const musicArtistClone = document.getElementById('music-artist-clone');
+            const trackTitleClone2 = document.getElementById('track-title-clone2');
+            const musicArtistClone2 = document.getElementById('music-artist-clone2');
+            
+            if (trackTitleClone) trackTitleClone.textContent = title;
+            if (musicArtistClone) musicArtistClone.textContent = artist + " - ";
+            if (trackTitleClone2) trackTitleClone2.textContent = title;
+            if (musicArtistClone2) musicArtistClone2.textContent = artist + " - ";
+            
         } else {
             // ✅ CHERCHE L'ITEM CORRESPONDANT À LA SOURCE ACTUELLE
             const currentSrc = player?.src;
@@ -104,8 +109,20 @@ export function intializeRadio() {
                 if (matchingItem) {
                     const title = matchingItem.querySelector('.music-title h1')?.textContent?.trim() || '';
                     const artist = matchingItem.querySelector('.music-artist')?.textContent?.trim() || '';
+                    
+                    // ✅ Met à jour les 6 éléments
                     if (trackTitle) trackTitle.textContent = title;
-                    if (musicArtist) musicArtist.textContent = artist;
+                    if (musicArtist) musicArtist.textContent = artist + " - ";
+                    
+                    const trackTitleClone = document.getElementById('track-title-clone');
+                    const musicArtistClone = document.getElementById('music-artist-clone');
+                    const trackTitleClone2 = document.getElementById('track-title-clone2');
+                    const musicArtistClone2 = document.getElementById('music-artist-clone2');
+                    
+                    if (trackTitleClone) trackTitleClone.textContent = title;
+                    if (musicArtistClone) musicArtistClone.textContent = artist + " - ";
+                    if (trackTitleClone2) trackTitleClone2.textContent = title;
+                    if (musicArtistClone2) musicArtistClone2.textContent = artist + " - ";
                     return;
                 }
             }
@@ -115,6 +132,16 @@ export function intializeRadio() {
             const fileName = decodeURIComponent(path.split('/').pop() || '');
             if (trackTitle) trackTitle.textContent = fileName.replace(/\.[^/.]+$/, "");
             if (musicArtist) musicArtist.textContent = '';
+            
+            const trackTitleClone = document.getElementById('track-title-clone');
+            const musicArtistClone = document.getElementById('music-artist-clone');
+            const trackTitleClone2 = document.getElementById('track-title-clone2');
+            const musicArtistClone2 = document.getElementById('music-artist-clone2');
+            
+            if (trackTitleClone) trackTitleClone.textContent = fileName.replace(/\.[^/.]+$/, "");
+            if (musicArtistClone) musicArtistClone.textContent = '';
+            if (trackTitleClone2) trackTitleClone2.textContent = fileName.replace(/\.[^/.]+$/, "");
+            if (musicArtistClone2) musicArtistClone2.textContent = '';
         }
     }
 

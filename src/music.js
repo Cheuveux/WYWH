@@ -21,20 +21,24 @@ document.querySelector('#app').innerHTML = `
     <!-- Les tracks seront chargées dynamiquement -->
   </div>
 
-  <div class="audio-footer">
-    <img class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
-    <div class="custom-player" id="custom-player">
-      <div id="track-title" class="track-title"></div>
-      <div class="progress-container">
-        <button class="play-pause" id="play-pause">
-          <img src="./icons/play-button.svg"/>
-        </button>
-        <span id="time-current">0:00</span>
-        <input type="range" id="progress" value="0" max="100">
-        <span id="time-total">0:00</span>
-      </div>
-    </div>
-    <audio class="radio-player" id="radio-player"></audio>
+   <div class="audio-footer">
+    <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
+        <div class="custom-player"  id="custom-player">
+          
+          <div class="progress-container">
+            <div class="scrolling-text">
+              <div id="music-artist" class="music-artist"></div>
+              <div id="track-title" class="track-title"></div>
+              <div id="music-artist-clone" class="music-artist"></div>
+              <div id="track-title-clone" class="track-title"></div>
+              <div id="music-artist-clone2" class="music-artist"></div>
+              <div id="track-title-clone2" class="track-title"></div>
+            </div>
+          </div>
+
+          
+        </div>
+        <audio class="radio-player" id="radio-player"></audio>
   </div> 
 `;
 
