@@ -1,4 +1,4 @@
-import{i as t,o as e,a as c}from"./themeSwitcher-Cw0osxwe.js";import{A as d,l}from"./calling_tracks_from_supabase-JQTPrc9t.js";document.querySelector("#app").innerHTML=`
+import{i as t,o as e,a as c}from"./themeSwitcher-C_EAisgq.js";import{A as d,l}from"./calling_tracks_from_supabase-BhbLTJP-.js";document.querySelector("#app").innerHTML=`
   <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.music</span></h1>
     <nav id="main-nav" class="main-nav">
