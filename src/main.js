@@ -6,6 +6,7 @@ import { intializeRadio } from './radio.js';
 import { openHeader} from './header.js';
 import { initWeather } from './weather.js';
 import { initThemeSwitcher } from './themeSwitcher.js'
+import { initCircularNav } from './ciruclar_nav.js';
 
 document.querySelector('#app').innerHTML = `
 
@@ -124,6 +125,6 @@ postcard();
 initializeHomeSwiper();
 intializeRadio();
 initWeather();
-
+initCircularNav();
 
 

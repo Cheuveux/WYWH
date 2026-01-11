@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menu circulaire</title>
+
+  <!-- D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      font-family: sans-serif;
+    }
+
+    svg {
+      width: 300px;
+      height: 300px;
+    }
+
+    .slice {
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .slice:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    .label {
+      fill: #fff;
+      font-size: 14px;
+      text-anchor: middle;
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="menu"></div>
+
+<script>
+/* =========================
+   DONNÉES DU MENU
+========================= */
+const menu = [
+  { name: "MUSIC",   url: "/music" },
+  { name: "PHOTO",   url: "/photo" },
+  { name: "ARTISTS", url: "/artists" },
+  { name: "SHOP",    url: "/shop" }
+];
+
+/* =========================
+   DIMENSIONS
+========================= */
+const size = 300;
+const radius = size / 2;
+
+/* =========================
+   SVG
+========================= */
+const svg = d3.select("#menu")
+  .append("svg")
+  .attr("viewBox", `0 0 ${size} ${size}`)
+  .append("g")
+  .attr("transform", `translate(${radius}, ${radius})`);
+
+/* =========================
+   COULEURS
+========================= */
+const color = d3.scaleOrdinal()
+  .domain(menu.map(d => d.name))
+  .range(["#7c3aed", "#db2777", "#2563eb", "#16a34a"]);
+
+/* =========================
+   PIE & ARCS
+========================= */
+const pie = d3.pie()
+  .value(1)
+  .sort(null);
+
+const arc = d3.arc()
+  .innerRadius(0)        // cercle plein
+  .outerRadius(radius);
+
+const labelArc = d3.arc()
+  .innerRadius(radius * 0.6)
+  .outerRadius(radius * 0.6);
+
+/* =========================
+   DESSIN DES PARTS
+========================= */
+const slices = svg.selectAll(".slice")
+  .data(pie(menu))
+  .enter()
+  .append("g")
+  .attr("class", "slice")
+  .on("click", (e, d) => {
+    window.location.href = d.data.url;
+  });
+
+slices.append("path")
+  .attr("d", arc)
+  .attr("fill", d => color(d.data.name));
+
+/* =========================
+   LABELS
+========================= */
+slices.append("text")
+  .attr("class", "label")
+  .attr("transform", d => `translate(${labelArc.centroid(d)})`)
+  .text(d => d.data.name);
+
+</script>
+
+</body>
+</html>

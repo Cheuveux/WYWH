@@ -5,6 +5,7 @@ import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
 import { initThemeSwitcher } from './themeSwitcher.js';
 import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
+import { initCircularNav } from './ciruclar_nav.js';
 
 document.querySelector('#app').innerHTML = `
   <header class="site-header">
@@ -45,7 +46,7 @@ document.querySelector('#app').innerHTML = `
 initThemeSwitcher();
 openHeader();
 AnimRadio();
-
+initCircularNav();
 // Initialise le player
 const radio = intializeRadio();
 

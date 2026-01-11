@@ -66,6 +66,9 @@ export function openHeader() {
           }
         );
         
+        // ✅ Ouvre le diagramme circulaire (desktop uniquement)
+        window.dispatchEvent(new CustomEvent('toggle-circular-nav'));
+        
         isOpen = true;
        } else {
         closeNav();
@@ -84,6 +87,9 @@ export function openHeader() {
 
         // ✅ Ferme aussi le widget météo
         window.dispatchEvent(new CustomEvent('close-weather'));
+        
+        // ✅ Ferme aussi le diagramme circulaire
+        window.dispatchEvent(new CustomEvent('header-closing'));
 
         gsap.to(navItems, {
             x: -50,
