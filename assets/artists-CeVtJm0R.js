@@ -1,4 +1,4 @@
-import{o as a,i as e,a as c}from"./themeSwitcher-B_bAjHT1.js";import{A as d,l}from"./calling_tracks_from_supabase-K1V85lK2.js";document.querySelector("#app").innerHTML=`
+import{g as t,o as e,i as d,a as l}from"./themeSwitcher-04_oACBW.js";import{A as c,l as n}from"./calling_tracks_from_supabase-DtQzOUT9.js";function o(){const s=document.querySelectorAll(".artist_name_item");document.querySelector(".artists_name_containeur").offsetHeight;const a=Array.from(s).reduce((i,r)=>i+r.offsetHeight,0);t.to(".artists_name_containeur",{y:`-${a/2}px`,duration:10,ease:"none",repeat:-1,modifiers:{y:t.utils.unitize(i=>parseFloat(i)%(a/2))}})}document.querySelector("#app").innerHTML=`
 
  <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.artists</span></h1>
@@ -10,6 +10,16 @@ import{o as a,i as e,a as c}from"./themeSwitcher-B_bAjHT1.js";import{A as d,l}fr
     </nav>
   </header>
 
+  <div class = "artists_name_containeur">
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  </div>
   <div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
@@ -29,4 +39,4 @@ import{o as a,i as e,a as c}from"./themeSwitcher-B_bAjHT1.js";import{A as d,l}fr
         </div>
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
-`;a();e();a();d();const r=c();l("music-playlist",(i,s)=>{r.playUrl(i),document.querySelectorAll(".music-item.active").forEach(t=>t.classList.remove("active")),s.classList.add("active")});
+`;e();d();e();c();o();const m=l();n("music-playlist",(s,a)=>{m.playUrl(s),document.querySelectorAll(".music-item.active").forEach(i=>i.classList.remove("active")),a.classList.add("active")});
