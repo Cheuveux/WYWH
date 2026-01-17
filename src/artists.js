@@ -1,10 +1,11 @@
 import './style.css';
-import'./providers.css'
+import'./artists.css'
 import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
 import { initThemeSwitcher } from './themeSwitcher.js';
 import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
+import { animArtist } from './anim_artist_generic.js';
 
 document.querySelector('#app').innerHTML = `
 
@@ -18,6 +19,16 @@ document.querySelector('#app').innerHTML = `
     </nav>
   </header>
 
+  <div class = "artists_name_containeur">
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  <div class = "artist_name_item">Element 1</div>
+  </div>
   <div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
@@ -44,7 +55,7 @@ openHeader();
 initThemeSwitcher();
 openHeader();
 AnimRadio();
-
+animArtist();
 // Initialise le player
 const radio = intializeRadio();
 
