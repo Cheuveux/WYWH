@@ -1,4 +1,4 @@
-import{i as t,o as e,a as c}from"./themeSwitcher-04_oACBW.js";import{A as r,l}from"./calling_tracks_from_supabase-DtQzOUT9.js";import{i as d}from"./ciruclar_nav-ovD36BnK.js";document.querySelector("#app").innerHTML=`
+import{i as t,o as e,a as r}from"./themeSwitcher-04_oACBW.js";import{A as c}from"./config_supabase-Bw7OPEPU.js";import{l}from"./calling_tracks_from_supabase-BynlQZtd.js";import{i as d}from"./ciruclar_nav-ovD36BnK.js";document.querySelector("#app").innerHTML=`
   <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.music</span></h1>
     <nav id="main-nav" class="main-nav">
@@ -32,4 +32,4 @@ import{i as t,o as e,a as c}from"./themeSwitcher-04_oACBW.js";import{A as r,l}fr
         </div>
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
-`;t();e();r();d();const o=c();l("music-playlist",(a,i)=>{o.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});
+`;t();e();c();d();const o=r();l("music-playlist",(a,i)=>{o.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});

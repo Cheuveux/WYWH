@@ -1,4 +1,4 @@
-import{i as t,o as e,a as c}from"./themeSwitcher-04_oACBW.js";import{A as d,l}from"./calling_tracks_from_supabase-DtQzOUT9.js";document.querySelector("#app").innerHTML=`
+import{i as t,o as e,a as c}from"./themeSwitcher-04_oACBW.js";import{A as r}from"./config_supabase-Bw7OPEPU.js";import{l as d}from"./calling_tracks_from_supabase-BynlQZtd.js";document.querySelector("#app").innerHTML=`
 
  <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
@@ -31,4 +31,4 @@ import{i as t,o as e,a as c}from"./themeSwitcher-04_oACBW.js";import{A as d,l}fr
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
 
-`;t();e();d();const r=c();l("music-playlist",(a,i)=>{r.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});
+`;t();e();r();const l=c();d("music-playlist",(a,i)=>{l.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});
