@@ -19,7 +19,19 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
 
         const { data: tracks, error } = await supabase
             .from('wywh_tracks')
-            .select('*')
+            .select(`
+                id,
+                title,
+                audio_url,
+                cover_url,
+                project,
+                wywh_track_artist (
+                artistes (
+                    id,
+                    name
+                )
+                )
+            `)
             .order('order', { ascending: true });
         
         if (error) throw error;
@@ -28,27 +40,36 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
             container.innerHTML = '<p style="color: var(--text-color); text-align: center;"> Aucune Piste disponible pour le moment sorrrry</p>';
             return;
         }
-        
-        container.innerHTML = tracks.map(track => `
-            <div class="music-item" 
-                 data-audio="${track.audio_url}"
-                 data-title="${track.title}"
-                 data-artist="${track.artist}"
-                 data-cover="${track.cover_url}">
-                <div class="music-cover">
-                    <img src="${track.cover_url}" alt="${track.title}">
-                </div>
-                <div class="music-info">
-                    <div class="music-title">
-                        <h1>${track.title}</h1>
-                    </div>
-                    <div class="music-2nd-info">
-                        <a href="./src/providers.js" class="music-artist">${track.artist}</a>
-                        <a href="./src/details/music/" class="music-project">${track.project}</a>
-                    </div>
-                </div>
-            </div>	
-        `).join('');
+
+        const getArtistNames = (track) =>
+            track.track_artists
+            ?.map(ta => ta.artistes.name)
+            .join(', ') || 'Artiste inconnu';
+
+        container.innerHTML = tracks.map(track => {
+  const artistNames = getArtistNames(track);
+
+  return `
+    <div class="music-item"
+         data-audio="${track.audio_url}"
+         data-title="${track.title}"
+         data-artist="${artistNames}"
+         data-cover="${track.cover_url}">
+      <div class="music-cover">
+        <img src="${track.cover_url}" alt="${track.title}">
+      </div>
+      <div class="music-info">
+        <div class="music-title">
+          <h1>${track.title}</h1>
+        </div>
+        <div class="music-2nd-info">
+          <a class="music-artist">${artistNames}</a>
+          <a class="music-project">${track.project}</a>
+        </div>
+      </div>
+    </div>
+  `;
+}).join('');
 
         if (onTrackClick) {
             container.querySelectorAll('.music-item').forEach(item => {
