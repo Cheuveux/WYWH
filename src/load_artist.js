@@ -26,40 +26,39 @@ export async function loadArtist(containerID) {
         return;
     }
 
-    // Génération du HTML
-    const html = artists.map(artist => `
-        <div class="artist_name_item" data-id="${artist.id}">
-            <h1>${artist.name}</h1>
-        </div>
-    `).join('');
+    // Création du wrapper principal
+    const list = document.createElement('div');
+    list.className = 'artists_list';
 
-    // Ajoute un wrapper pour l'animation
-    container.innerHTML = `<div class="artists_list">${html + html + html}</div>`;
-
-    const list = container.querySelector('.artists_list');
-
-    list.querySelectorAll('.artist_name_item').forEach(item => {
+    // Fonction pour créer un élément artiste
+    function createArtistItem(artist) {
+        const item = document.createElement('div');
+        item.className = 'artist_name_item';
+        item.dataset.id = artist.id;
+        const h1 = document.createElement('h1');
+        h1.textContent = artist.name;
+        item.appendChild(h1);
         item.addEventListener('click', () => {
-            const artistId = item.dataset.id;
-            window.location.href = `artist.html?id=${artistId}`;
+            window.location.href = `artist.html?id=${artist.id}`;
         });
+        return item;
+    }
+
+    // Ajout des artistes originaux
+    artists.forEach(artist => {
+        const item = createArtistItem(artist);
+        list.appendChild(item);
     });
 
-    // Animation GSAP sur la liste interne
-    requestAnimationFrame(() => {
-        const singleListHeight = list.scrollHeight / 2;
-        const duration = singleListHeight / 30;
-
-        gsap.set(list, { y: 0 });
-
-        gsap.to(list, {
-            y: -singleListHeight,
-            duration: duration,
-            ease: "linear",
-            repeat: -1,
-            modifiers: {
-                y: gsap.utils.wrap(-singleListHeight, 0)
-            }
+    // Clonage dynamique des éléments pour le scroll infini
+    const cloneCount = 2; // nombre de clones
+    for (let i = 0; i < cloneCount; i++) {
+        artists.forEach(artist => {
+            const clone = createArtistItem(artist);
+            list.appendChild(clone);
         });
-    });
+    }
+
+    container.innerHTML = '';
+    container.appendChild(list);
 }

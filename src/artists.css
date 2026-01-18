@@ -9,7 +9,7 @@
     left: 50%;
     transform: translate(-50%, -50%) perspective(800px);
     width: 60vw;
-    height: auto;
+    height: 70vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -38,9 +38,9 @@
 
 @keyframes scroll-artists {
     0% {
-        transform: translateY(100%);
+        transform: translateY(0%);
     }
     100% {
-        transform: translateY(-100%);
+        transform: translateY(-50%);
     }
 }

@@ -52,10 +52,11 @@ openHeader();
 initThemeSwitcher();
 openHeader();
 AnimRadio();
-loadArtist("artists_name_containeur");
+document.addEventListener('DOMContentLoaded', () => {
+    loadArtist("artists_name_containeur");
+});
 // Initialise le player
 const radio = intializeRadio();
-
 // // ✅ Charge les tracks depuis Supabase
 // loadTracksFromSupabase('music-playlist', (audioUrl, item) => {
 //   // Joue la track
