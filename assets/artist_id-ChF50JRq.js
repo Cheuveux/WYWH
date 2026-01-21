@@ -1,4 +1,4 @@
-import{i as c,o,a as l}from"./themeSwitcher-04_oACBW.js";import{s as n,A as m}from"./config_supabase-Bw7OPEPU.js";async function v(){const t=new URLSearchParams(window.location.search).get("id");if(!t){document.getElementById("artist_name").textContent="Artiste introuvable";return}const{data:d,error:s}=await n.from("artistes").select("name").eq("id",t).single();if(s){console.error(s),document.getElementById("artist_name").textContent="Erreur chargement de l'artiste";return}document.getElementById("artist_name").textContent=d.name;const{data:a,error:e}=await n.from("wywh_track_artist").select(`
+import{i as m,o as u,a as v}from"./themeSwitcher-DDB_Opo8.js";import{s as e,A as h}from"./config_supabase-lXi46aFV.js";async function p(){const s=new URLSearchParams(window.location.search),i=Number(s.get("id"));if(!i){document.getElementById("artist_name").textContent="Artiste introuvable";return}const{data:n,error:c}=await e.from("artistes").select("name").eq("id",i).single();if(c){console.error(c),document.getElementById("artist_name").textContent="Erreur chargement de l'artiste";return}document.getElementById("artist_name").textContent=n.name;const{data:d,error:l}=await e.from("wywh_track_artist").select("artist_id");console.log("Test db :",d,l);const{data:t,error:r}=await e.from("wywh_track_artist").select(`
             track_id,
             wywh_tracks (
                 id,
@@ -6,12 +6,14 @@ import{i as c,o,a as l}from"./themeSwitcher-04_oACBW.js";import{s as n,A as m}fr
                 audio_url,
                 cover_url
             )
-        `).eq("artist_id",t);if(e){console.error(e);return}const r=document.getElementById("artist_tracks");if(!a||a.lenght===0){r.innerHTML="<p>Aucune track pour cet artiste</p>";return}r.innerHTML=a.map(i=>`
-    <div class="track-item" data-id="${i.wywh_tracks.id}">
-      <h2>${i.wywh_tracks.title}</h2>
-      <audio controls src="${i.wywh_tracks.audio_url}">
+        `).eq("artist_id",i);if(console.log("trackLinks:",t,"tracksError:",r),console.log("artistID raw:",s.get("id")),console.log("artistID Number:",Number(s.get("id"))),r){console.error(r);return}const o=document.getElementById("artist_tracks");if(!t||t.length===0){o.innerHTML="<p>Aucune track pour cet artiste</p>";return}o.innerHTML=t.map(a=>`
+    <div class="track_item" data-id="${a.wywh_tracks.id}">
+	<img src=${a.wywh_tracks.cover_url} class="music_cover">
+      <h2>${a.wywh_tracks.title}</h2>
+      <audio  src="${a.wywh_tracks.audio_url}">
         Votre navigateur ne supporte pas l’audio.
       </audio>
+	  
     </div>
   `).join("")}document.querySelector("#app").innerHTML=`
  <header class="site-header">
@@ -26,7 +28,7 @@ import{i as c,o,a as l}from"./themeSwitcher-04_oACBW.js";import{s as n,A as m}fr
   </header>
 
     <div class = "artist_content" id = "artist_content">
-        <div class = "artist_name" id = "artist_name"></div>
+        <h1 class = "artist_name" id = "artist_name"></h1>
         <div class = "artist_tracks" id = "artist_tracks"></div>
         <div class = "artist_bio" id = "artist_bio"></div>
     </div>
@@ -48,4 +50,4 @@ import{i as c,o,a as l}from"./themeSwitcher-04_oACBW.js";import{s as n,A as m}fr
             </div>
             <audio class="radio-player" id="radio-player"></audio>
     </div> 
-`;c();o();m();document.addEventListener("DOMContentLoaded",()=>{v()});l();
+`;m();u();h();p();v();

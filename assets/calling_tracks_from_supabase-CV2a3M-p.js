@@ -1,4 +1,4 @@
-import{s as u}from"./config_supabase-Bw7OPEPU.js";async function v(i,s){const e=document.getElementById(i);if(!e){console.error(`Container #${i} not found`);return}try{e.innerHTML='<p style="color: var(--text-color); text-align:center"> Chargement des pistes...</p>';const{data:a,error:o}=await u.from("wywh_tracks").select(`
+import{s as u}from"./config_supabase-lXi46aFV.js";async function v(i,s){const e=document.getElementById(i);if(!e){console.error(`Container #${i} not found`);return}try{e.innerHTML='<p style="color: var(--text-color); text-align:center"> Chargement des pistes...</p>';const{data:a,error:o}=await u.from("wywh_tracks").select(`
                 id,
                 title,
                 audio_url,
@@ -10,7 +10,7 @@ import{s as u}from"./config_supabase-Bw7OPEPU.js";async function v(i,s){const e=
                     name
                 )
                 )
-            `).order("order",{ascending:!0});if(o)throw o;if(!a||a.length===0){e.innerHTML='<p style="color: var(--text-color); text-align: center;"> Aucune Piste disponible pour le moment sorrrry</p>';return}const n=t=>t.track_artists?.map(r=>r.artistes.name).join(", ")||"Artiste inconnu";e.innerHTML=a.map(t=>{const r=n(t);return`
+            `).order("order",{ascending:!0});if(o)throw o;if(!a||a.length===0){e.innerHTML='<p style="color: var(--text-color); text-align: center;"> Aucune Piste disponible pour le moment sorrrry</p>';return}const n=t=>t.wywh_track_artist?.map(r=>r.artistes.name).join(", ")||"Artiste inconnu";e.innerHTML=a.map(t=>{const r=n(t);return`
     <div class="music-item"
          data-audio="${t.audio_url}"
          data-title="${t.title}"
