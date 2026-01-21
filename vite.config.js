@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
         music: './music.html',
         photo: './photo.html',
         artists: './artists.html',
-        artist_id: './artist_id.hmtl'
+        artist_id: './artist_id.html'
       }
     }
   }
