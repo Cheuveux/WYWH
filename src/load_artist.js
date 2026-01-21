@@ -39,7 +39,7 @@ export async function loadArtist(containerID) {
         h1.textContent = artist.name;
         item.appendChild(h1);
         item.addEventListener('click', () => {
-            window.location.href = `artist.html?id=${artist.id}`;
+            window.location.href = `artist_id.html?id=${artist.id}`;
         });
         return item;
     }
