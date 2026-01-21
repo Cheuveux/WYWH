@@ -326,7 +326,8 @@ a:hover,
     width: 100%;
     max-width: 330px;
     margin-top: 0.1rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    justify-content: center;
   }
 
   .logo > img {
@@ -810,7 +811,7 @@ a:hover,
     left: 50%;
     right: auto;
     transform: translateX(-50%);
-    max-width: 75%;
+    max-width: 70%;
     padding: 0.3rem;
   }
 

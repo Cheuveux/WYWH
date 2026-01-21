@@ -42,7 +42,7 @@ export async function loadTracksFromSupabase(containerID, onTrackClick) {
         }
 
         const getArtistNames = (track) =>
-            track.track_artists
+            track.wywh_track_artist
             ?.map(ta => ta.artistes.name)
             .join(', ') || 'Artiste inconnu';
 

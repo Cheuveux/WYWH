@@ -1,4 +1,5 @@
 import './style.css';
+import './artist_id.css';
 import { openHeader } from './header';
 import { intializeRadio } from './radio.js';
 import { AnimRadio } from './anim_radio.js';
@@ -19,7 +20,7 @@ document.querySelector('#app').innerHTML = `
   </header>
 
     <div class = "artist_content" id = "artist_content">
-        <div class = "artist_name" id = "artist_name"></div>
+        <h1 class = "artist_name" id = "artist_name"></h1>
         <div class = "artist_tracks" id = "artist_tracks"></div>
         <div class = "artist_bio" id = "artist_bio"></div>
     </div>
@@ -46,11 +47,7 @@ document.querySelector('#app').innerHTML = `
 initThemeSwitcher();
 openHeader();
 AnimRadio();
-
-// ✅ Charge l'artiste avec le bon ID de conteneur
-document.addEventListener('DOMContentLoaded', () => {
-    fetchArtist("artist_content");
-});
+fetchArtist();
 
 // Initialise le player
 const radio = intializeRadio();

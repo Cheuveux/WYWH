@@ -4,7 +4,7 @@ export async function fetchArtist() {
 
 	//lecture de l'id depuis la db
 	const	params = new URLSearchParams(window.location.search);
-	const	artistID = params.get('id');
+	const artistID = Number(params.get('id'));
 
 	if (!artistID)
 	{
@@ -26,8 +26,12 @@ export async function fetchArtist() {
 	}
 	document.getElementById('artist_name').textContent = artist.name;
 	
-
-	// chargement des tracks lies a cet artiste via la table de liaisom
+	const {data, error} = await supabase
+	.from('wywh_track_artist')
+	.select('artist_id')
+	
+	console.log("Test db :", data, error);
+	// chargement des tracks lies a cet artiste via la table de liaiso
  const {data: trackLinks, error: tracksError} = await supabase
         .from('wywh_track_artist')
         .select(`
@@ -40,7 +44,9 @@ export async function fetchArtist() {
             )
         `)
         .eq('artist_id', artistID);
-        
+		console.log("trackLinks:", trackLinks, "tracksError:", tracksError);
+		console.log("artistID raw:", params.get('id'));
+		console.log("artistID Number:", Number(params.get('id'))); 
         if (tracksError)
         {
             console.error(tracksError);
@@ -48,7 +54,7 @@ export async function fetchArtist() {
         }
 		
 		const container = document.getElementById('artist_tracks');
-		if(!trackLinks || trackLinks.lenght === 0)
+		if(!trackLinks || trackLinks.length === 0)
 		{
 			container.innerHTML = "<p>Aucune track pour cet artiste</p>";
 			return;
@@ -56,11 +62,13 @@ export async function fetchArtist() {
 
 	//affichage des tracks
 	container.innerHTML = trackLinks.map(link => `
-    <div class="track-item" data-id="${link.wywh_tracks.id}">
+    <div class="track_item" data-id="${link.wywh_tracks.id}">
+	<img src=${link.wywh_tracks.cover_url} class="music_cover">
       <h2>${link.wywh_tracks.title}</h2>
-      <audio controls src="${link.wywh_tracks.audio_url}">
+      <audio  src="${link.wywh_tracks.audio_url}">
         Votre navigateur ne supporte pas l’audio.
       </audio>
+	  
     </div>
   `).join('');
 }
