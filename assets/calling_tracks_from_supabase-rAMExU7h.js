@@ -1,4 +1,4 @@
-import{s as u}from"./config_supabase-B11HTsin.js";async function v(i,s){const e=document.getElementById(i);if(!e){console.error(`Container #${i} not found`);return}try{e.innerHTML='<p style="color: var(--text-color); text-align:center"> Chargement des pistes...</p>';const{data:a,error:o}=await u.from("wywh_tracks").select(`
+import{s as u}from"./config_supabase-9SlIWOXG.js";async function v(i,s){const e=document.getElementById(i);if(!e){console.error(`Container #${i} not found`);return}try{e.innerHTML='<p style="color: var(--text-color); text-align:center"> Chargement des pistes...</p>';const{data:a,error:o}=await u.from("wywh_tracks").select(`
                 id,
                 title,
                 audio_url,
