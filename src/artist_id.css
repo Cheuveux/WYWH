@@ -26,7 +26,8 @@ body {
     flex-direction: column;
     width: 100%;
     max-width: 750px;
-    height: 470px;
+    height: fit-content;
+    max-height: 470px;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -67,7 +68,8 @@ body {
 	}
 
     .artist_tracks {
-        height: 270px;
+        height: fit-content;
+        max-height: 270px;
     }
 }
 .track-item:focus-within {
