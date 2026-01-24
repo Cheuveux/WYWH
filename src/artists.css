@@ -17,7 +17,7 @@
     align-items: center;
     text-transform: uppercase;
     color: var(--text-color);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    /* text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9); */
     letter-spacing: 0.3em;
     font-family: 'Arial Black', Arial, sans-serif;
 }
