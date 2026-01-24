@@ -1,19 +1,17 @@
-import{i as t,o as e,a as r}from"./themeSwitcher-C337WcwA.js";import{A as c}from"./config_supabase-DSp5UNws.js";import{l}from"./calling_tracks_from_supabase-DBrrW_cU.js";import{i as d}from"./ciruclar_nav-DFhP10pE.js";document.querySelector("#app").innerHTML=`
-  <header class="site-header">
-    <h1 class="logo">wishyouwerehere<span>.music</span></h1>
+import{i as t,o as e,a as c}from"./themeSwitcher-BLiWBBTa.js";import{A as r}from"./config_supabase-B11HTsin.js";import{l as d}from"./calling_tracks_from_supabase-xBAG727S.js";document.querySelector("#app").innerHTML=`
+
+ <header class="site-header">
+    <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="/WYWH/index.html"><span>.world</span></a>
-      <a class="nav-item" href="/WYWH/photo.html"><span>.photo</span></a>
+      <a class="nav-item" href="/WYWH/music.html"><span>.music</span></a>
       <a class="nav-item" href="/WYWH/artists.html"><span>.artists</span></a>
       <a class="nav-item" href="/WYWH/shop.html"><span>.shop</span></a>
     </nav>
   </header>
 
-  <div class="music-playlist" id="music-playlist">
-    <!-- Les tracks seront chargées dynamiquement -->
-  </div>
 
-   <div class="audio-footer">
+<div class="audio-footer">
     <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
         <div class="custom-player"  id="custom-player">
           
@@ -32,4 +30,5 @@ import{i as t,o as e,a as r}from"./themeSwitcher-C337WcwA.js";import{A as c}from
         </div>
         <audio class="radio-player" id="radio-player"></audio>
   </div> 
-`;t();e();c();d();const o=r();l("music-playlist",(a,i)=>{o.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});
+
+`;t();e();r();const l=c();d("music-playlist",(a,i)=>{l.playUrl(a),document.querySelectorAll(".music-item.active").forEach(s=>s.classList.remove("active")),i.classList.add("active")});
