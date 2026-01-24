@@ -147,6 +147,7 @@ body {
 /* Header style */
 header {
   z-index: 1500;
+  position: relative;
 }
 
 .site-header {

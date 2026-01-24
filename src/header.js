@@ -6,6 +6,7 @@ export function openHeader() {
     const navItems = nav.querySelectorAll('.nav-item');
     const actuLines = document.querySelector('.actu-lines');
     const lines = actuLines ? actuLines.querySelectorAll('.line') : [];
+    const artistPhoto = document.querySelector('.artist-photo');
     let isOpen = false;
 
     logo.addEventListener('click', () => {
@@ -14,6 +15,8 @@ export function openHeader() {
         nav.style.display = "flex";
         if (actuLines && window.innerWidth > 750) 
             actuLines.style.display = "flex";
+        if(artistPhoto)
+            artistPhoto.style.display = "flex";
         
         // ✅ Ouvre aussi la météo de la slide active
         const activeSlide = document.querySelector('.swiper-slide-active');
@@ -91,6 +94,8 @@ export function openHeader() {
         // ✅ Ferme aussi le diagramme circulaire
         window.dispatchEvent(new CustomEvent('header-closing'));
 
+        if(artistPhoto)
+            artistPhoto.style.display = "none";
         gsap.to(navItems, {
             x: -50,
             opacity: 0,

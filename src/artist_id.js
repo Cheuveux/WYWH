@@ -6,10 +6,13 @@ import { AnimRadio } from './anim_radio.js';
 import { initThemeSwitcher } from './themeSwitcher.js';
 import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
 import { fetchArtist } from './artist_page.js'
+import { initCircularNav } from './ciruclar_nav.js';
 
 document.querySelector('#app').innerHTML = `
  <header class="site-header">
-    <h1 class="logo">wishyouwerehere<span>.artist</span></h1>
+    <h1 class="logo">
+        wishyouwerehere.<span id="artist_name"></span>
+    </h1>
     <nav id="main-nav" class="main-nav">
       <a class="nav-item" href="${import.meta.env.BASE_URL}index.html"><span>.world</span></a>
       <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.music</span></a>
@@ -19,11 +22,26 @@ document.querySelector('#app').innerHTML = `
     </nav>
   </header>
 
-    <div class = "artist_content" id = "artist_content">
-        <h1 class = "artist_name" id = "artist_name"></h1>
-        <div class = "artist_tracks" id = "artist_tracks"></div>
-        <div class = "artist_bio" id = "artist_bio"></div>
-    </div>
+   <div class="main_content_artist" id="main_content_artist">
+        <div class = "artist_content" id = "artist_content">
+            <div class = "artist_tracks" id = "artist_tracks"></div>
+        	<div class="artist-photo-container" id="artist-photo-container"></div>
+            <div class = "actu-lines" id = "actu-lines">
+                <div class="line actu-1" id="actu-1"></div>
+                <div class="line actu-2" id="actu-2"></div>
+                <div class="line actu-3" id="actu-3"></div>
+                <div class="line actu-4">
+                    <div class ="short_line4">Short</div>
+                    <div class ="long_line4" id="actu-4"></div>
+                </div>
+            </div>
+            <div class="artists_reco" id="artist_reco"></div>
+        </div>
+
+        <div class="artiste_reco">
+            <div class=""></div>
+        </div>
+   </div>
 
     <div class="audio-footer">
         <img  class="radio-toggle" id="radio-toggle" src="https://pub-e38587f10dd74235986dd93b16c10e06.r2.dev/icons/radio-icons/radio%20wywh.svg" alt="Radio toggle" />
@@ -45,9 +63,18 @@ document.querySelector('#app').innerHTML = `
 `;
 
 initThemeSwitcher();
-openHeader();
+initCircularNav();
 AnimRadio();
 fetchArtist();
-
+openHeader();
 // Initialise le player
 const radio = intializeRadio();
+// charge les tracks depuis Supabase
+loadTracksFromSupabase('music-playlist', (audioUrl, item) => {
+  // Joue la track
+  radio.playUrl(audioUrl);
+  
+  // Marque visuellement l'item actif
+  document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+});
