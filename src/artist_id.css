@@ -26,11 +26,11 @@ body {
     flex-direction: column;
     width: 100%;
     max-width: 750px;
-    height: 60%;
+    height: 270px;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 1rem;
     gap: .5rem;
@@ -99,9 +99,9 @@ body {
 .artist-photo-container {
     display: none;
     position: absolute;
-    top: 60%;
+    top: 150%;
     right: 5%;
-    width: 23vw;
+    width: 20vw;
     height: auto;
     z-index: 100;
 }
