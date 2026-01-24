@@ -6,14 +6,11 @@ export function intializeRadio() {
     const customPlayer = document.getElementById('custom-player');
     const trackTitle = document.getElementById('track-title');
     const musicArtist = document.getElementById('music-artist');
-    const timeCurrent = document.getElementById('time-current');
-    const timeTotal = document.getElementById('time-total');
     const playBtn = document.getElementById('play-pause');
 
     // ✅ RÉCUPÈRE LES PISTES DEPUIS .music-item (si elles existent)
     let tracks = getTracksFromPlaylist();
     
-
     // ✅ SHUFFLE les pistes au chargement
     tracks = shuffleArray(tracks);
 
@@ -38,7 +35,6 @@ export function intializeRadio() {
                     player.currentTime = state.currentTime;
                 }
                 if (state.isPlaying) {
-                    // On attend que le player soit prêt avant de jouer
                     player.addEventListener('canplay', function autoPlayOnRestore() {
                         player.play();
                         player.removeEventListener('canplay', autoPlayOnRestore);
@@ -81,56 +77,39 @@ export function intializeRadio() {
         return shuffled;
     }
 
+    // ✅ RÉCUPÈRE LE TITRE ET L'ARTISTE DEPUIS LE DOM (data-audio)
     function updateTrackTitle() {
-        const active = document.querySelector('.music-item.active');
-        if (active) {
-            const title = active.querySelector('.music-title h1')?.textContent?.trim() || '';
-            const artist = active.querySelector('.music-artist')?.textContent?.trim() || '';
+        const currentSrc = player?.src;
+        if (!currentSrc) return;
+
+        // Cherche l'item correspondant dans le DOM
+        const matchingItem = document.querySelector(`.music-item[data-audio="${currentSrc}"]`);
+        
+        if (matchingItem) {
+            const title = matchingItem.querySelector('.music-title h1')?.textContent?.trim() || '';
+            const artist = matchingItem.querySelector('.music-artist')?.textContent?.trim() || '';
             
-            // ✅ Met à jour les 6 éléments (originaux + 2 clones)
+            // ✅ Met à jour les éléments originaux
             if (trackTitle) trackTitle.textContent = title;
-            if (musicArtist) musicArtist.textContent = artist + " - ";
+            if (musicArtist) musicArtist.textContent = artist ? artist + " - " : '';
             
+            // ✅ Met à jour les clones
             const trackTitleClone = document.getElementById('track-title-clone');
             const musicArtistClone = document.getElementById('music-artist-clone');
             const trackTitleClone2 = document.getElementById('track-title-clone2');
             const musicArtistClone2 = document.getElementById('music-artist-clone2');
             
             if (trackTitleClone) trackTitleClone.textContent = title;
-            if (musicArtistClone) musicArtistClone.textContent = artist + " - ";
+            if (musicArtistClone) musicArtistClone.textContent = artist ? artist + " - " : '';
             if (trackTitleClone2) trackTitleClone2.textContent = title;
-            if (musicArtistClone2) musicArtistClone2.textContent = artist + " - ";
-            
+            if (musicArtistClone2) musicArtistClone2.textContent = artist ? artist + " - " : '';
         } else {
-            // ✅ CHERCHE L'ITEM CORRESPONDANT À LA SOURCE ACTUELLE
-            const currentSrc = player?.src;
-            if (currentSrc) {
-                const matchingItem = document.querySelector(`.music-item[data-audio="${currentSrc}"]`);
-                if (matchingItem) {
-                    const title = matchingItem.querySelector('.music-title h1')?.textContent?.trim() || '';
-                    const artist = matchingItem.querySelector('.music-artist')?.textContent?.trim() || '';
-                    
-                    // ✅ Met à jour les 6 éléments
-                    if (trackTitle) trackTitle.textContent = title;
-                    if (musicArtist) musicArtist.textContent = artist + " - ";
-                    
-                    const trackTitleClone = document.getElementById('track-title-clone');
-                    const musicArtistClone = document.getElementById('music-artist-clone');
-                    const trackTitleClone2 = document.getElementById('track-title-clone2');
-                    const musicArtistClone2 = document.getElementById('music-artist-clone2');
-                    
-                    if (trackTitleClone) trackTitleClone.textContent = title;
-                    if (musicArtistClone) musicArtistClone.textContent = artist + " - ";
-                    if (trackTitleClone2) trackTitleClone2.textContent = title;
-                    if (musicArtistClone2) musicArtistClone2.textContent = artist + " - ";
-                    return;
-                }
-            }
-
             // Fallback : affiche le nom du fichier
-            const path = tracks[current] || '';
+            const path = currentSrc || '';
             const fileName = decodeURIComponent(path.split('/').pop() || '');
-            if (trackTitle) trackTitle.textContent = fileName.replace(/\.[^/.]+$/, "");
+            const fallbackTitle = fileName.replace(/\.[^/.]+$/, "");
+            
+            if (trackTitle) trackTitle.textContent = fallbackTitle;
             if (musicArtist) musicArtist.textContent = '';
             
             const trackTitleClone = document.getElementById('track-title-clone');
@@ -138,25 +117,21 @@ export function intializeRadio() {
             const trackTitleClone2 = document.getElementById('track-title-clone2');
             const musicArtistClone2 = document.getElementById('music-artist-clone2');
             
-            if (trackTitleClone) trackTitleClone.textContent = fileName.replace(/\.[^/.]+$/, "");
+            if (trackTitleClone) trackTitleClone.textContent = fallbackTitle;
             if (musicArtistClone) musicArtistClone.textContent = '';
-            if (trackTitleClone2) trackTitleClone2.textContent = fileName.replace(/\.[^/.]+$/, "");
+            if (trackTitleClone2) trackTitleClone2.textContent = fallbackTitle;
             if (musicArtistClone2) musicArtistClone2.textContent = '';
         }
     }
 
-
     // Restaure l'état si possible
     if (player) {
         restorePlayerState();
-        // Si la lecture reprend automatiquement, anime le toggle et affiche le player
         const state = JSON.parse(localStorage.getItem('wywh-radio-state'));
         if (state && state.isPlaying) {
-            // Affiche le player et anime le toggle
             setTimeout(() => {
                 if (typeof showPlayer === 'function') showPlayer();
                 else {
-                    // fallback si showPlayer n'est pas accessible
                     if (customPlayer && toggleBtn) {
                         isVisible = true;
                         toggleBtn.classList.add('active');
@@ -165,7 +140,7 @@ export function intializeRadio() {
                     }
                 }
                 updateTrackTitle();
-            }, 100); // petit délai pour laisser le DOM prêt
+            }, 100);
         }
     }
     if (tracks.length && player && !player.src) player.src = tracks[current];

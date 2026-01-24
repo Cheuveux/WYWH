@@ -6,17 +6,21 @@ export function openHeader() {
     const navItems = nav.querySelectorAll('.nav-item');
     const actuLines = document.querySelector('.actu-lines');
     const lines = actuLines ? actuLines.querySelectorAll('.line') : [];
-    const artistPhoto = document.querySelector('.artist-photo');
+    const artisteBio = document.querySelector('.artiste_bio');
+    const artistPhotoContainer = document.querySelector('.artist-photo-container');
     let isOpen = false;
 
     logo.addEventListener('click', () => {
        if (!isOpen) {
         // Ouvre le menu
         nav.style.display = "flex";
-        if (actuLines && window.innerWidth > 750) 
-            actuLines.style.display = "flex";
-        if(artistPhoto)
-            artistPhoto.style.display = "flex";
+        
+        // Affiche la bio, la photo et actuLines uniquement sur desktop (> 750px)
+        if (window.innerWidth > 750) {
+            if (actuLines) actuLines.style.display = "flex";
+            if (artisteBio) artisteBio.style.display = "flex";
+            if (artistPhotoContainer) artistPhotoContainer.style.display = "flex";
+        }
         
         // ✅ Ouvre aussi la météo de la slide active
         const activeSlide = document.querySelector('.swiper-slide-active');
@@ -36,8 +40,8 @@ export function openHeader() {
             ease: "power2.out"
         });
 
-        // Anime les lignes
-        if (actuLines) {
+        // Anime actuLines
+        if (actuLines && window.innerWidth > 750) {
             gsap.to(actuLines, {
                 opacity: 1,
                 duration: 0.4,
@@ -50,6 +54,39 @@ export function openHeader() {
                 scaleX: 1,
                 duration: 0.6,
                 stagger: 0.1,
+                ease: "power2.out"
+              }
+            );
+        }
+
+        // Anime la bio avec les mêmes effets que actuLines
+        if (artisteBio && window.innerWidth > 750) {
+            gsap.to(artisteBio, {
+                opacity: 1,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+
+            const bioLines = artisteBio.querySelectorAll('.bio_line');
+            gsap.fromTo(bioLines,
+              { scaleX: 0, transformOrigin: "left center" },
+              {
+                scaleX: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out"
+              }
+            );
+        }
+        
+        // Anime la photo (apparition progressive)
+        if (artistPhotoContainer && window.innerWidth > 750) {
+            gsap.fromTo(artistPhotoContainer,
+              { opacity: 0, scale: 0.8 },
+              {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
                 ease: "power2.out"
               }
             );
@@ -94,8 +131,6 @@ export function openHeader() {
         // ✅ Ferme aussi le diagramme circulaire
         window.dispatchEvent(new CustomEvent('header-closing'));
 
-        if(artistPhoto)
-            artistPhoto.style.display = "none";
         gsap.to(navItems, {
             x: -50,
             opacity: 0,
@@ -104,8 +139,8 @@ export function openHeader() {
             ease: "power2.in"
         });
 
-        // Anime la fermeture des lignes
-        if (lines.length > 0) {
+        // Anime la fermeture des actuLines
+        if (lines.length > 0 && window.innerWidth > 750) {
             gsap.to(lines, {
                 scaleX: 0,
                 duration: 0.4,
@@ -114,7 +149,30 @@ export function openHeader() {
             });
         }
 
-        const elementsToHide = actuLines ? [nav, actuLines] : [nav];
+        // Anime la fermeture des lignes de bio
+        if (artisteBio && window.innerWidth > 750) {
+            const bioLines = artisteBio.querySelectorAll('.bio_line');
+            gsap.to(bioLines, {
+                scaleX: 0,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.in"
+            });
+        }
+
+        // Anime la disparition de la photo
+        if (artistPhotoContainer && window.innerWidth > 750) {
+            gsap.to(artistPhotoContainer, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.4,
+                ease: "power2.in"
+            });
+        }
+
+        const elementsToHide = [nav];
+        if (actuLines && window.innerWidth > 750) elementsToHide.push(actuLines);
+        if (artisteBio && window.innerWidth > 750) elementsToHide.push(artisteBio);
         
         gsap.to(elementsToHide, {
             opacity: 0,
@@ -123,7 +181,9 @@ export function openHeader() {
             ease: "power2.in",
             onComplete: () => {
                 nav.style.display = "none";
-                if (actuLines) actuLines.style.display = "none";
+                if (actuLines && window.innerWidth > 750) actuLines.style.display = "none";
+                if (artisteBio && window.innerWidth > 750) artisteBio.style.display = "none";
+                if (artistPhotoContainer && window.innerWidth > 750) artistPhotoContainer.style.display = "none";
             }
         });
 

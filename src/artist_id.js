@@ -25,16 +25,16 @@ document.querySelector('#app').innerHTML = `
    <div class="main_content_artist" id="main_content_artist">
         <div class = "artist_content" id = "artist_content">
             <div class = "artist_tracks" id = "artist_tracks"></div>
-        	<div class="artist-photo-container" id="artist-photo-container"></div>
-            <div class = "actu-lines" id = "actu-lines">
-                <div class="line actu-1" id="actu-1"></div>
-                <div class="line actu-2" id="actu-2"></div>
-                <div class="line actu-3" id="actu-3"></div>
-                <div class="line actu-4">
-                    <div class ="short_line4">Short</div>
-                    <div class ="long_line4" id="actu-4"></div>
+            <div class = "artiste_bio" id = "artiste_bio">
+                <div class="bio_line actu-1" id="actu-1"></div>
+                <div class="bio_line actu-2" id="actu-2"></div>
+                <div class="bio_line actu-3" id="actu-3"></div>
+                <div class="bio_line actu-4" id="actu-4">
+                    <div class ="bio_short_line4">Short</div>
+                    <div class ="bio_long_line4"></div>
                 </div>
             </div>
+        	<div class="artist-photo-container" id="artist-photo-container"></div>
             <div class="artists_reco" id="artist_reco"></div>
         </div>
 
@@ -65,16 +65,30 @@ document.querySelector('#app').innerHTML = `
 initThemeSwitcher();
 initCircularNav();
 AnimRadio();
-fetchArtist();
 openHeader();
+
 // Initialise le player
 const radio = intializeRadio();
-// charge les tracks depuis Supabase
-loadTracksFromSupabase('music-playlist', (audioUrl, item) => {
-  // Joue la track
-  radio.playUrl(audioUrl);
+
+// ✅ Attends que fetchArtist() termine avant d'attacher les clics
+fetchArtist().then(() => {
+  // ✅ Attache les événements de clic sur les tracks de l'artiste
+  const trackItems = document.querySelectorAll('.track_item.music-item');
   
-  // Marque visuellement l'item actif
-  document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
-  item.classList.add('active');
+  trackItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const audioUrl = item.getAttribute('data-audio');
+      
+      if (audioUrl) {
+        // Joue la track
+        radio.playUrl(audioUrl);
+        
+        // Marque visuellement l'item actif
+        document.querySelectorAll('.music-item.active').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      }
+    });
+  });
+  
+  console.log(`✅ ${trackItems.length} tracks de l'artiste chargées`);
 });

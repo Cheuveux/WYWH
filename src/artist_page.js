@@ -65,14 +65,19 @@ export async function fetchArtist() {
 
 	//affichage des tracks
 	container.innerHTML = trackLinks.map(link => `
-    <div class="track_item" data-id="${link.wywh_tracks.id}">
-	<img src=${link.wywh_tracks.cover_url} class="music_cover">
-      <h2>${link.wywh_tracks.title}</h2>
-      <audio  src="${link.wywh_tracks.audio_url}">
-        Votre navigateur ne supporte pas l’audio.
-      </audio>
+    <div class="track_item music-item" data-id="${link.wywh_tracks.id}" data-audio="${link.wywh_tracks.audio_url}">
+        <img src="${link.wywh_tracks.cover_url}" class="music_cover">
+        <div class="music-info">
+            <div class="music-title">
+                <h1>${link.wywh_tracks.title}</h1>
+            </div>
+            <div class="music-artist">${artist.name}</div>
+        </div>
+        <audio src="${link.wywh_tracks.audio_url}">
+            Votre navigateur ne supporte pas l'audio.
+        </audio>
     </div>
-  `).join('');
+`).join('');
 
   //affichage du contenu descriptif de l'artiste
   document.getElementById('actu-1').textContent = artist.bio_title || "";
