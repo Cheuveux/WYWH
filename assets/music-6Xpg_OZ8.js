@@ -1,4 +1,4 @@
-import{i as t,o as e,a as r}from"./themeSwitcher-Dynd2dVD.js";import{A as c}from"./config_supabase-9SlIWOXG.js";import{l}from"./calling_tracks_from_supabase-rAMExU7h.js";import{i as d}from"./ciruclar_nav-kO_hrfJu.js";document.querySelector("#app").innerHTML=`
+import{i as t,o as e,a as r}from"./themeSwitcher-BLiWBBTa.js";import{A as c}from"./config_supabase-B11HTsin.js";import{l}from"./calling_tracks_from_supabase-xBAG727S.js";import{i as d}from"./ciruclar_nav-NLe2xcA4.js";document.querySelector("#app").innerHTML=`
   <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.music</span></h1>
     <nav id="main-nav" class="main-nav">
