@@ -67,7 +67,7 @@ body {
 	}
 
     .artist_tracks {
-        height: 60%;
+        height: 270px;
     }
 }
 .track-item:focus-within {
