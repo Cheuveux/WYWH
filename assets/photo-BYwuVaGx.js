@@ -1,4 +1,4 @@
-import{i as t,o as e,a as c}from"./themeSwitcher-DDB_Opo8.js";import{A as r}from"./config_supabase-lXi46aFV.js";import{l as d}from"./calling_tracks_from_supabase-CV2a3M-p.js";document.querySelector("#app").innerHTML=`
+import{i as t,o as e,a as c}from"./themeSwitcher-C337WcwA.js";import{A as r}from"./config_supabase-DSp5UNws.js";import{l as d}from"./calling_tracks_from_supabase-DBrrW_cU.js";document.querySelector("#app").innerHTML=`
 
  <header class="site-header">
     <h1 class="logo">wishyouwerehere<span>.photo</span></h1>
