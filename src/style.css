@@ -523,6 +523,7 @@ a:hover,
   font-family: "Acumin-italic", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-style: italic;
   color: var(--text-color);
+  background-color: var(--bg-color);
 }
 
 .radio-toggle {

@@ -26,7 +26,7 @@ body {
     flex-direction: column;
     width: 100%;
     max-width: 750px;
-    height: 270px;
+    height: 470px;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -65,6 +65,10 @@ body {
 	{
 		font-size: 2rem;
 	}
+
+    .artist_tracks {
+        height: 60%;
+    }
 }
 .track-item:focus-within {
     outline: 2px solid rgba(100,150,255,0.25);
@@ -99,7 +103,7 @@ body {
 .artist-photo-container {
     display: none;
     position: absolute;
-    top: 150%;
+    top: 70%;
     right: 5%;
     width: 20vw;
     height: auto;
