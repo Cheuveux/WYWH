@@ -1,12 +1,9 @@
 import './style.css';
 import './artist_id.css';
 import { openHeader } from './header';
-import { intializeRadio } from './radio.js';
-import { AnimRadio } from './anim_radio.js';
-import { initThemeSwitcher } from './themeSwitcher.js';
 import { loadTracksFromSupabase } from './calling_tracks_from_supabase.js';
 import { fetchArtist } from './artist_page.js'
-import { initCircularNav } from './ciruclar_nav.js';
+import { initCircularNav } from './circular_nav.js';
 
 document.querySelector('#app').innerHTML = `
  <header class="site-header">
@@ -14,11 +11,11 @@ document.querySelector('#app').innerHTML = `
         wishyouwerehere.<span id="artist_name"></span>
     </h1>
     <nav id="main-nav" class="main-nav">
-      <a class="nav-item" href="${import.meta.env.BASE_URL}index.html"><span>.world</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}music.html"><span>.music</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}photo.html"><span>.photo</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}artists.html"><span>.artists</span></a>
-      <a class="nav-item" href="${import.meta.env.BASE_URL}shop.html"><span>.shop</span></a>
+      <a class="nav-item" href="/" data-link><span>.world</span></a>
+      <a class="nav-item" href="/music" data-link><span>.music</span></a>
+      <a class="nav-item" href="/photo" data-link><span>.photo</span></a>
+      <a class="nav-item" href="/artists" data-link><span>.artists</span></a>
+      <a class="nav-item" href="/shop" data-link><span>.shop</span></a>
     </nav>
   </header>
 
@@ -62,9 +59,7 @@ document.querySelector('#app').innerHTML = `
     </div> 
 `;
 
-initThemeSwitcher();
 initCircularNav();
-AnimRadio();
 openHeader();
 
 // Initialise le player

@@ -26,11 +26,9 @@ export async function loadArtist(containerID) {
         return;
     }
 
-    // Création du wrapper principal
     const list = document.createElement('div');
     list.className = 'artists_list';
 
-    // Fonction pour créer un élément artiste
     function createArtistItem(artist) {
         const item = document.createElement('div');
         item.className = 'artist_name_item';
@@ -38,20 +36,24 @@ export async function loadArtist(containerID) {
         const h1 = document.createElement('h1');
         h1.textContent = artist.name;
         item.appendChild(h1);
-        item.addEventListener('click', () => {
-            window.location.href = `artist_id.html?id=${artist.id}`;
+
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const link = document.createElement('a');
+            link.href = `/artists/${artist.id}`;
+            link.setAttribute('data-link', '');
+            link.click();
         });
+
         return item;
     }
 
-    // Ajout des artistes originaux
     artists.forEach(artist => {
         const item = createArtistItem(artist);
         list.appendChild(item);
     });
 
-    // Clonage dynamique des éléments pour le scroll infini
-    const cloneCount = 2; // nombre de clones
+    const cloneCount = 2;
     for (let i = 0; i < cloneCount; i++) {
         artists.forEach(artist => {
             const clone = createArtistItem(artist);

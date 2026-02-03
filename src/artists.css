@@ -4,12 +4,10 @@
 }
 
 .artists_name_containeur {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) perspective(800px);
-    width: 60vw;
-    height: 70vh;
+    position: relative;
+    top: 10%;
+    width: 100%;
+    height: 80vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -17,7 +15,6 @@
     align-items: center;
     text-transform: uppercase;
     color: var(--text-color);
-    /* text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9); */
     letter-spacing: 0.3em;
     font-family: 'Arial Black', Arial, sans-serif;
 }
@@ -32,6 +29,7 @@
 
 
 .artists_list {
+    position: relative;
     display: flex;
     flex-direction: column;
     animation: scroll-artists 45s linear infinite;

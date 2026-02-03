@@ -1,35 +1,69 @@
 import { gsap } from "gsap";
 
+// ✅ WeakMap pour tracker chaque logo individuellement
+const logoListeners = new WeakMap();
+let isOpen = false; // ✅ Variable globale pour l'état du menu
+
 export function openHeader() {
     const logo = document.querySelector('.logo');
     const nav = document.getElementById('main-nav');
+    
+    if (!nav) {
+        console.warn('⚠️ Navigation non trouvée');
+        return;
+    }
+    
     const navItems = nav.querySelectorAll('.nav-item');
     const actuLines = document.querySelector('.actu-lines');
     const lines = actuLines ? actuLines.querySelectorAll('.line') : [];
     const artisteBio = document.querySelector('.artiste_bio');
     const artistPhotoContainer = document.querySelector('.artist-photo-container');
-    let isOpen = false;
 
-    logo.addEventListener('click', () => {
-       if (!isOpen) {
-        // Ouvre le menu
+    // ✅ N'ajoute le listener que si ce logo ne l'a pas encore
+    if (logo && !logoListeners.has(logo)) {
+        console.log('🟢 Ajout du listener sur le logo');
+        
+        logo.addEventListener('click', toggleHeader);
+        logoListeners.set(logo, true); // ✅ Marque ce logo comme initialisé
+        
+        // ✅ Écoute l'événement de fermeture seulement une fois
+        window.addEventListener('close-navigation', handleCloseNavigation);
+    }
+
+    function toggleHeader() {
+        console.log('🔴 Logo cliqué ! isOpen:', isOpen);
+        if (!isOpen) {
+            openNav();
+        } else {
+            closeNav();
+        }
+    }
+
+    function handleCloseNavigation() {
+        if (isOpen) {
+            console.log('🔄 Fermeture automatique du menu');
+            closeNav();
+        }
+    }
+
+    function openNav() {
+        console.log('🟢 Ouverture du menu');
+        if (!nav) return;
+        
         nav.style.display = "flex";
         
-        // Affiche la bio, la photo et actuLines uniquement sur desktop (> 750px)
         if (window.innerWidth > 750) {
             if (actuLines) actuLines.style.display = "flex";
             if (artisteBio) artisteBio.style.display = "flex";
             if (artistPhotoContainer) artistPhotoContainer.style.display = "flex";
         }
         
-        // ✅ Ouvre aussi la météo de la slide active
         const activeSlide = document.querySelector('.swiper-slide-active');
         if (activeSlide) {
             const locationElement = activeSlide.querySelector('.location');
             if (locationElement) {
                 const ville = locationElement.textContent.trim();
                 console.log('📍 Ouverture météo pour:', ville);
-                // Déclenche un événement custom pour weather.js
                 window.dispatchEvent(new CustomEvent('open-weather', { detail: { ville } }));
             }
         }
@@ -40,7 +74,6 @@ export function openHeader() {
             ease: "power2.out"
         });
 
-        // Anime actuLines
         if (actuLines && window.innerWidth > 750) {
             gsap.to(actuLines, {
                 opacity: 1,
@@ -59,7 +92,6 @@ export function openHeader() {
             );
         }
 
-        // Anime la bio avec les mêmes effets que actuLines
         if (artisteBio && window.innerWidth > 750) {
             gsap.to(artisteBio, {
                 opacity: 1,
@@ -79,7 +111,6 @@ export function openHeader() {
             );
         }
         
-        // Anime la photo (apparition progressive)
         if (artistPhotoContainer && window.innerWidth > 750) {
             gsap.fromTo(artistPhotoContainer,
               { opacity: 0, scale: 0.8 },
@@ -106,29 +137,16 @@ export function openHeader() {
           }
         );
         
-        // ✅ Ouvre le diagramme circulaire (desktop uniquement)
         window.dispatchEvent(new CustomEvent('toggle-circular-nav'));
         
         isOpen = true;
-       } else {
-        closeNav();
-       }
-    });
-
-    window.addEventListener('close-navigation', () => {
-        if (isOpen) {
-            console.log('🔄 Fermeture automatique du menu (changement de slide)');
-            closeNav();
-        }
-    });
+    }
 
     function closeNav() {
-        if (!isOpen) return;
+        console.log('🔴 Fermeture du menu');
+        if (!isOpen || !nav) return;
 
-        // ✅ Ferme aussi le widget météo
         window.dispatchEvent(new CustomEvent('close-weather'));
-        
-        // ✅ Ferme aussi le diagramme circulaire
         window.dispatchEvent(new CustomEvent('header-closing'));
 
         gsap.to(navItems, {
@@ -139,7 +157,6 @@ export function openHeader() {
             ease: "power2.in"
         });
 
-        // Anime la fermeture des actuLines
         if (lines.length > 0 && window.innerWidth > 750) {
             gsap.to(lines, {
                 scaleX: 0,
@@ -149,7 +166,6 @@ export function openHeader() {
             });
         }
 
-        // Anime la fermeture des lignes de bio
         if (artisteBio && window.innerWidth > 750) {
             const bioLines = artisteBio.querySelectorAll('.bio_line');
             gsap.to(bioLines, {
@@ -160,7 +176,6 @@ export function openHeader() {
             });
         }
 
-        // Anime la disparition de la photo
         if (artistPhotoContainer && window.innerWidth > 750) {
             gsap.to(artistPhotoContainer, {
                 opacity: 0,
