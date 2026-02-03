@@ -36,7 +36,7 @@
 :root[data-theme="light"] {
   --bg-color: rgb(255, 252, 255);
   --text-color: rgba(0, 0, 0, 0.9);
-  --text-secondary: rgb(142, 167, 167);
+  --text-secondary: rgb(127, 130, 130);
   --border-color: rgba(100, 97, 93, 0.438);
   --card-bg: rgba(255, 255, 255, 0.03);
   --shadow-color: rgba(0, 0, 0, 0.15);
@@ -49,7 +49,7 @@
 :root[data-theme="dark"] {
   --bg-color: rgb(18, 18, 18);
   --text-color: rgba(255, 255, 255, 0.9);
-  --text-secondary: rgb(142, 167, 167);
+  --text-secondary: rgb(127, 130, 130);
   --border-color: rgba(255, 255, 255, 0.2);
   --card-bg: rgba(0, 0, 0, 0.3);
   --shadow-color: rgba(255, 255, 255, 0.1);
