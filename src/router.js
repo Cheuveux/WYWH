@@ -2,33 +2,46 @@ export class Router {
 	constructor() {
 		this.routes = {};
 		this.currentPage = null;
+		this.base = import.meta.env.BASE_URL || '/'; // ✅ Récupère le base path de Vite
 	}
 
 	register(path, loadFunction) {
 		this.routes[path] = loadFunction;
 	}
 
+	// ✅ NOUVELLE MÉTHODE : Normalise le path en enlevant le base
+	normalizePath(fullPath) {
+		// Enlève le base path (ex: /WYWH/ → /)
+		if (this.base !== '/' && fullPath.startsWith(this.base)) {
+			return fullPath.slice(this.base.length - 1) || '/';
+		}
+		return fullPath || '/';
+	}
+
 	async navigate(path) {
-		let route = this.routes[path];
-		let params = null; // ✅ Pour stocker les paramètres dynamiques
+		// ✅ Normalise le path
+		const normalizedPath = this.normalizePath(path);
+		console.log('🔵 Navigation:', path, '→', normalizedPath);
+
+		let route = this.routes[normalizedPath];
+		let params = null;
 
 		if (!route) {
-			// ✅ Cherche une route avec pattern (ex: /artists/:id)
 			for (let routePath in this.routes) {
 				const pattern = routePath.replace(/:\w+/g, '([^/]+)');
 				const regex = new RegExp(`^${pattern}$`);
-				const match = path.match(regex);
+				const match = normalizedPath.match(regex);
 
 				if (match) {
 					route = this.routes[routePath];
-					params = match.slice(1); // ✅ Récupère les paramètres capturés
+					params = match.slice(1);
 					break;
 				}
 			}
 		}
 
 		if (!route) {
-			console.error('Route non trouvée', path);
+			console.error('Route non trouvée:', normalizedPath);
 			return;
 		}
 
@@ -42,34 +55,30 @@ export class Router {
 			await new Promise(resolve => setTimeout(resolve, 200));
 			content.innerHTML = '';
 
-			// ✅ Passe le path complet à la fonction render
-			await route(content, path, params);
+			await route(content, normalizedPath, params);
 
 			content.style.opacity = '1';
 		}
 
+		// ✅ Utilise le path COMPLET pour l'URL
 		if (window.location.pathname !== path) {
 			window.history.pushState(null, '', path);
 		}
 
-		this.updatePageTitle(path);
+		this.updatePageTitle(normalizedPath);
 	}
 
-	// Nettoie les widgets
 	cleanupWidgets() {
-		// Ferme la météo
 		const weatherWidget = document.querySelector('.weather-widget');
 		if (weatherWidget) {
 			weatherWidget.remove();
 		}
 
-		// Ferme le circular nav
 		const circularNav = document.querySelector('.circular-nav');
 		if (circularNav) {
 			circularNav.remove();
 		}
 
-		// Dispatch les événements de fermeture au cas où
 		window.dispatchEvent(new CustomEvent('close-weather'));
 		window.dispatchEvent(new CustomEvent('header-closing'));
 	}
@@ -90,6 +99,8 @@ export class Router {
 	}
 
 	init() {
+		console.log('🔵 Router init - Base:', this.base);
+		console.log('🔵 Current pathname:', window.location.pathname);
 
 		document.addEventListener('click', (e) => {
 			const link = e.target.closest('a[data-link]');
@@ -97,12 +108,20 @@ export class Router {
 			if (link)
 			{
 				e.preventDefault();
-				const href = link.getAttribute('href');
+				let href = link.getAttribute('href');
+				
+				// ✅ Ajoute le base si nécessaire
+				if (this.base !== '/' && !href.startsWith(this.base)) {
+					href = this.base.slice(0, -1) + href;
+				}
+				
+				console.log('🔗 Clic lien:', href);
 				this.navigate(href);
 			}
 		});
 
 		window.addEventListener('popstate', () => {
+			console.log('🔙 Popstate:', window.location.pathname);
 			this.navigate(window.location.pathname);
 		});
 
