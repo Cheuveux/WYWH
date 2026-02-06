@@ -68,7 +68,7 @@ export function postcard(container, rectoPath, versoPath) {
 
   // === Caméra ===
   const camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 0.1, 100);
-  const cameraDistance = isMobile ? 9 : 14;
+  const cameraDistance = isMobile ? 7 : 14;
   camera.position.set(0, 0, cameraDistance);
 
   // === Rendu avec paramètres optimisés ===
@@ -82,7 +82,11 @@ export function postcard(container, rectoPath, versoPath) {
   renderer.toneMappingExposure = 1.0;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   
-  renderer.setSize(container.offsetWidth, container.offsetHeight);
+  // ✅ Assure que le container a des dimensions avant de render
+  const width = container.offsetWidth || (isMobile ? 350 : 900);
+  const height = container.offsetHeight || (isMobile ? 250 : 640);
+  
+  renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   container.appendChild(renderer.domElement);
@@ -176,14 +180,17 @@ export function postcard(container, rectoPath, versoPath) {
       meshVerso.geometry = newGeometry;
     }
 
-    camera.aspect = container.offsetWidth / container.offsetHeight;
+    const width = container.offsetWidth || (newIsMobile ? 350 : 900);
+    const height = container.offsetHeight || (newIsMobile ? 250 : 640);
+
+    camera.aspect = width / height;
     camera.position.set(0, 0, newCameraDistance);
     camera.updateProjectionMatrix();
 
     controls.maxDistance = newCameraDistance;
     controls.minDistance = newCameraDistance;
 
-    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   });
 }

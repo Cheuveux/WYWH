@@ -1,9 +1,93 @@
+/* FIlter button */
+
+.filter_accordeon {
+    position: static;
+    width: 20%;
+    margin-left: 2rem;
+    align-items: left;
+}
+
+.filter_toggle {
+    width: 64px;
+    padding: 1rem;
+    color: var(--text-color);
+    border: 1px pointed var(--border-color);
+    font-size: 1rem;
+    text-align: left;
+}
+
+  /* ✅ FILTRE ADAPTATIF SELON LE THÈME */
+:root[data-theme="light"] .filter_toggle {
+  filter: invert(0.5) brightness(0.8);
+}
+
+:root[data-theme="dark"] .filter_toggle {
+  filter: invert(0.8) brightness(1.2);
+}
+.filter_options {
+    position: absolute;
+    margin-top: 2rem;
+    text-align: left;
+    background: transparent;
+    flex-direction: column;
+    border: none;
+    gap: .3rem;
+    text-align: left;
+}
+
+.filter_options button {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+.which_options {
+    text-align: left;
+}
+.filter-options button:hover {
+  background: var(--input-bg);
+}
+
+@media screen and (max-width: 850px) {
+  .filter_accordeon {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    align-items: end;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .filter_toggle {
+    margin-left: auto;
+  }
+  .filter_options {
+    position: absolute;
+    right: 5%;
+    top: 100%;
+    margin-top: 0.5rem;
+    text-align: left;
+    background: rgba(187, 175, 175, 0.44);
+    flex-direction: column;
+    border: none;
+    gap: .3rem;
+    text-align: left;
+    z-index: 999;
+  }
+
+}
+
 .music-playlist {
     position: relative;
     display: flex;
     flex-direction: column;
     max-width: 750px;
-    height: 60%;
+    height: 70%;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -11,7 +95,7 @@
     align-items: center;
     padding: 1rem;
     gap: .5rem;
-    margin: 10rem auto auto;
+    margin: 0rem auto auto;
     z-index: 100;
 
  /* hide scrollbar while keeping scrolling usable */
@@ -37,14 +121,7 @@
     border-bottom: none;
 }
 
-/* .music-item,
-.music-item:focus-within,
-.music-item.active {
-    transform: translateX(6px)scale(1.02);
-    box-shadow: 0 6px 18px;
-    background-color: rgba(255,255,255,0.03);
-}
-/* accessible keyboard focus */
+
 .music-item:focus-within {
     outline: 2px solid rgba(100,150,255,0.25);
     outline-offset: 2px;
@@ -118,9 +195,8 @@
 {
     .music-playlist {
         width: 100%;
-        height: 60%;
-        margin-top: 9rem;
-        padding: .2rem;
+        height: 70%;
+        padding: .5rem;
     }
 
     .music-item {
