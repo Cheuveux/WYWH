@@ -34,7 +34,7 @@ export async function loadPhotoFromSupabase() {
 export function generatePhotoCard(photo) {
 	return `
 		<div class="swiper-slide">
-			<div class="card" data-cntent="${photo.photo_front}|${photo.photo_back}">
+			<div class="card" data-content="${photo.photo_front}|${photo.photo_back}">
 				<div class="card-inner"></div>
 			</div>
 			<h2 class="project-info">

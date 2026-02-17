@@ -98,7 +98,19 @@ export async function render(container) {
     // ✅ INITIALISATION DES SCRIPTS (après avoir injecté le HTML)
     openHeader();           // Initialise le header (gère le clic sur le logo)
     shuffle();              // Initialise le shuffle
-    postcard();             // Initialise les cartes postales 3D
+    
+    // ✅ Initialise les cartes postales 3D pour chaque carte
+    document.querySelectorAll('.card').forEach(cardElement => {
+        const content = cardElement.dataset.content;
+        if (content) {
+            const [rectoPath, versoPath] = content.split('|').map(path => path.trim());
+            const cardInner = cardElement.querySelector('.card-inner');
+            if (cardInner && rectoPath && versoPath) {
+                postcard(cardInner, rectoPath, versoPath);
+            }
+        }
+    });
+    
     initializeHomeSwiper(); // Initialise Swiper
     initWeather();          // Initialise la météo
     initCircularNav();      // Initialise la navigation circulaire

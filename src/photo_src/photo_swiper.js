@@ -11,9 +11,10 @@ export function initializePhotoSwiper() {
 	}
 	return new Swiper('.photo-swiper', {
 		modules: [Navigation, Pagination, Mousewheel, Keyboard],
-		direction: 'horizontal',
+		direction: 'vertical',
 		slidesPerView: 1, 
 		centeredSlides: true,
+		loop: true,
 		mousewheel: {
 			forceToAxis: true,
 			sensitivity: 1,
@@ -25,12 +26,12 @@ export function initializePhotoSwiper() {
 		},
 		breakpoints: {
 			768: {
-				slidesPerView: 1.5,
-				spaceBetween: 30
+				slidesPerView: 1,
+				spaceBetween: 0
 			},
 			1024: {
-				slidesPerView: 2,
-				spaceBetween: 40
+				slidesPerView: 1,
+				spaceBetween: 0
 			}
 		}
 	});

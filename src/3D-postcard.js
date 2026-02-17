@@ -68,7 +68,7 @@ export function postcard(container, rectoPath, versoPath) {
 
   // === Caméra ===
   const camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 0.1, 100);
-  const cameraDistance = isMobile ? 7 : 14;
+  const cameraDistance = isMobile ? 8 : 14;
   camera.position.set(0, 0, cameraDistance);
 
   // === Rendu avec paramètres optimisés ===
@@ -83,8 +83,8 @@ export function postcard(container, rectoPath, versoPath) {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   
   // ✅ Assure que le container a des dimensions avant de render
-  const width = container.offsetWidth || (isMobile ? 350 : 900);
-  const height = container.offsetHeight || (isMobile ? 250 : 640);
+  const width = container.offsetWidth || container.parentElement?.offsetWidth || (isMobile ? 350 : 900);
+  const height = container.offsetHeight || container.parentElement?.offsetHeight || (isMobile ? 250 : 640);
   
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -180,8 +180,8 @@ export function postcard(container, rectoPath, versoPath) {
       meshVerso.geometry = newGeometry;
     }
 
-    const width = container.offsetWidth || (newIsMobile ? 350 : 900);
-    const height = container.offsetHeight || (newIsMobile ? 250 : 640);
+    const width = container.offsetWidth || container.parentElement?.offsetWidth || (newIsMobile ? 350 : 900);
+    const height = container.offsetHeight || container.parentElement?.offsetHeight || (newIsMobile ? 250 : 640);
 
     camera.aspect = width / height;
     camera.position.set(0, 0, newCameraDistance);
