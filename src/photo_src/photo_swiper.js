@@ -1,15 +1,15 @@
 import Swiper from 'swiper';
 import {Navigation, Mousewheel, Keyboard, Pagination} from 'swiper/modules';
 
-export function initializePhotoSwiper() {
-	const swiperElement = document.querySelector('.photo-swiper')
+export function initializePhotoSwiper(selector = '.photo-swiper') {
+	const swiperElement = document.querySelector(selector)
 	
 	if (!swiperElement)
 	{
-		console.warn('Swiper photo non trouve');
+		console.warn('Swiper photo non trouve:', selector);
 		return;
 	}
-	return new Swiper('.photo-swiper', {
+	return new Swiper(selector, {
 		modules: [Navigation, Pagination, Mousewheel, Keyboard],
 		direction: 'vertical',
 		slidesPerView: 1, 

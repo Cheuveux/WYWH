@@ -1,5 +1,6 @@
 import '../style.css';
 import '../artist_id.css';
+import '../photo.css';
 import { openHeader } from '../header.js';
 import { fetchArtist } from '../artist_page.js';
 import { initCircularNav } from '../circular_nav.js';
@@ -36,6 +37,11 @@ export async function render(container, path) {
                 </div>
                 <div class="artist-photo-container" id="artist-photo-container"></div>
                 <div class="artists_reco" id="artist_reco"></div>
+            </div>
+            <div class="artist_photos_section" id="artist_photos_section">
+                <div class="swiper photo-swiper artist-photo-swiper">
+                    <div class="swiper-wrapper" id="artist-photo-wrapper"></div>
+                </div>
             </div>
         </div>
     `;

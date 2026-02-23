@@ -57,3 +57,34 @@ export function generatePhotoCard(photo) {
 		</div>
 	`;
 }
+
+/**
+ * Chargement des photos liées à un artiste spécifique
+ * @param {number} artistId
+ * @returns {Promise<Array>}
+ */
+export async function loadPhotosByArtist(artistId) {
+	try {
+		const { data, error } = await supabase
+			.from('wywh_photo_artist')
+			.select(`
+				wywh_photo (
+					photo_id,
+					photo_front,
+					photo_back,
+					localisation,
+					created_at
+				)
+			`)
+			.eq('artist_id', artistId);
+
+		if (error) throw error;
+
+		const photos = data?.map(pa => pa.wywh_photo).filter(Boolean) || [];
+		console.log(`📸 ${photos.length} photos trouvées pour l'artiste ${artistId}`);
+		return photos;
+	} catch (error) {
+		console.error("Erreur lors du chargement des photos de l'artiste:", error);
+		return [];
+	}
+}

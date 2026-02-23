@@ -1,4 +1,7 @@
 import { supabase } from './config_supabase.js'
+import { loadPhotosByArtist } from './photo_src/loadPhotoFromSupabase.js'
+import { postcard } from './3D-postcard.js'
+import { initializePhotoSwiper } from './photo_src/photo_swiper.js'
 
 export async function fetchArtist(artistId) {
     const artistID = Number(artistId);
@@ -59,12 +62,9 @@ export async function fetchArtist(artistId) {
     }
     
     if(!trackLinks || trackLinks.length === 0) {
-        container.innerHTML = "<p>Aucune track pour cet artiste</p>";
-        return;
-    }
-
-    //affichage des tracks
-    container.innerHTML = trackLinks.map(link => `
+        container.remove();
+    } else {
+        container.innerHTML = trackLinks.map(link => `
         <div class="track_item music-item" data-id="${link.wywh_tracks.id}" data-audio="${link.wywh_tracks.audio_url}">
             <img src="${link.wywh_tracks.cover_url}" class="music_cover">
             <div class="music-info">
@@ -75,8 +75,8 @@ export async function fetchArtist(artistId) {
             </div>
         </div>
     `).join('');
-
-    console.log('✅ HTML tracks injecté');
+        console.log('✅ HTML tracks injecté');
+    }
 
     //affichage du contenu descriptif de l'artiste
     const actu1 = document.getElementById('actu-1');
@@ -102,5 +102,38 @@ export async function fetchArtist(artistId) {
     }
     
     console.log('✅ Bio et photo affichées');
+
+    // chargement des photos liées à l'artiste
+    const photos = await loadPhotosByArtist(artistID);
+    const photoWrapper = document.getElementById('artist-photo-wrapper');
+
+    if (photos.length > 0 && photoWrapper) {
+        photoWrapper.innerHTML = photos.map(photo => `
+            <div class="swiper-slide">
+                <div class="card" data-content="${photo.photo_front}|${photo.photo_back}">
+                    <div class="card-inner"></div>
+                </div>
+                <h2 class="project-info">
+                    <span class="location">${photo.localisation || ''}</span>
+                </h2>
+            </div>
+        `).join('');
+
+        document.querySelectorAll('.artist-photo-swiper .card').forEach(cardElement => {
+            const content = cardElement.dataset.content;
+            if (content) {
+                const [rectoPath, versoPath] = content.split('|').map(p => p.trim());
+                const cardInner = cardElement.querySelector('.card-inner');
+                if (cardInner && rectoPath && versoPath) {
+                    postcard(cardInner, rectoPath, versoPath);
+                }
+            }
+        });
+
+        initializePhotoSwiper('.artist-photo-swiper');
+        console.log(`✅ ${photos.length} photos de l'artiste affichées`);
+    } else if (photoWrapper) {
+        photoWrapper.closest('.artist_photos_section')?.remove();
+    }
 }
 

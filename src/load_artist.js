@@ -1,5 +1,4 @@
 import { supabase } from './config_supabase.js';
-import { gsap } from "gsap";
 
 export async function loadArtist(containerID) {
     const container = document.getElementById(containerID);
